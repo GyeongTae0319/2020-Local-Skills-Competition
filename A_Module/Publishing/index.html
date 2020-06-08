@@ -5,64 +5,349 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>내집꾸미기</title>
 
-        <link rel="stylesheet" href="style.css" />
+        <link
+            rel="shortcut icon"
+            href="./resources/images/brand/favicon.png"
+            type="image/x-icon"
+        />
+        <link rel="stylesheet" href="./resources/stylesheets/app.css" />
     </head>
     <body>
+        <!--헤더 영역-->
         <header>
-            <div class="contents">
-                <a href="#" class="head">
-                    <img
-                        src="./resources/logo.svg"
-                        title="심볼 로고"
-                        alt="로고"
-                        class="logo"
-                    />
-                    <h1 href="#" class="text title">내집꾸미기</h1>
-                </a>
-                <nav>
-                    <a href="#" class="text nav-item active">홈</a>
-                    <a href="#" class="text nav-item">온라인 집들이</a>
-                    <a href="#" class="text nav-item">스토어</a>
-                    <a href="#" class="text nav-item">전문가</a>
-                    <a href="#" class="text nav-item">시공 견적</a>
-                </nav>
-                <div class="account">
-                    <a href="#" class="text link">회원가입</a>
-                    <a href="#" class="text link">로그인</a>
-                </div>
+            <!--브랜드 로고-->
+            <a href="#" class="brand">
+                <img
+                    src="./resources/images/brand/logo.svg"
+                    title="로고"
+                    alt="심볼 로고"
+                    class="logo"
+                />
+                <img
+                    src="./resources/images/brand/title.svg"
+                    title="내집꾸미기"
+                    alt="내집꾸미기"
+                    class="title"
+                />
+            </a>
+            <!--네비게이션-->
+            <nav>
+                <a href="#" class="nav-item active">홈</a>
+                <a href="#" class="nav-item">온라인 집들이</a>
+                <a href="#" class="nav-item">스토어</a>
+                <a href="#" class="nav-item">전문가</a>
+                <a href="#" class="nav-item">시공 견젹</a>
+            </nav>
+            <!--로그인 및 회원가입-->
+            <div class="account">
+                <a href="#" class="register">회원가입</a>
+                <a href="#" class="button login">로그인</a>
             </div>
         </header>
 
+        <!--본문 영역-->
         <article>
-            <section id="imageSlider">
-                <span class="backboard"></span>
+            <!--이미지 슬라이더-->
+            <section id="imageSlide">
                 <div class="carousel">
                     <div class="viewport">
-                        <div class="slide"></div>
-                        <div class="slide"></div>
-                        <div class="slide"></div>
+                        <div
+                            class="slide"
+                            style="
+                                background-image: url(./resources/images/slide/image-1.jpg);
+                            "
+                        ></div>
+                        <div
+                            class="slide"
+                            style="
+                                background-image: url(./resources/images/slide/image-2.jpg);
+                            "
+                        ></div>
+                        <div
+                            class="slide"
+                            style="
+                                background-image: url(./resources/images/slide/image-3.jpg);
+                            "
+                        ></div>
+                    </div>
+                    <div class="controller">
+                        <div class="slide-1">
+                            <button class="btn-prev">
+                                <img
+                                    src="./resources/images/icons/arrow.svg"
+                                    title="이전 슬라이드"
+                                    alt="이전 슬라이드"
+                                    class="icon"
+                                />
+                            </button>
+                            <button class="btn-next">
+                                <img
+                                    src="./resources/images/icons/arrow.svg"
+                                    title="다음 슬라이드"
+                                    alt="다음 슬라이드"
+                                    class="icon"
+                                />
+                            </button>
+                        </div>
+                        <div class="slide-2">
+                            <button class="btn-prev">
+                                <img
+                                    src="./resources/images/icons/arrow.svg"
+                                    title="이전 슬라이드"
+                                    alt="이전 슬라이드"
+                                    class="icon"
+                                />
+                            </button>
+                            <button class="btn-next">
+                                <img
+                                    src="./resources/images/icons/arrow.svg"
+                                    title="다음 슬라이드"
+                                    alt="다음 슬라이드"
+                                    class="icon"
+                                />
+                            </button>
+                        </div>
+                        <div class="slide-3">
+                            <button class="btn-prev">
+                                <img
+                                    src="./resources/images/icons/arrow.svg"
+                                    title="이전 슬라이드"
+                                    alt="이전 슬라이드"
+                                    class="icon"
+                                />
+                            </button>
+                            <button class="btn-next">
+                                <img
+                                    src="./resources/images/icons/arrow.svg"
+                                    title="다음 슬라이드"
+                                    alt="다음 슬라이드"
+                                    class="icon"
+                                />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
-            <section id="housewarmingParty">
-                <ul class="list">
-                    <li class="item">
-                        <div class="img">
-                            <span class="before"></span>
-                            <span class="after"></span>
+            <main>
+                <section id="housewarming">
+                    <h2 class="title">온라인 집들이</h2>
+                    <div class="contents">
+                        <div class="card">
+                            <div class="thumbnail">
+                                <div
+                                    style="
+                                        background-image: url(./resources/images/slide/image-1.jpg);
+                                    "
+                                    class="img-before"
+                                ></div>
+                                <div
+                                    style="
+                                        background-image: url(./resources/images/slide/image-3.jpg);
+                                    "
+                                    class="img-after"
+                                ></div>
+                            </div>
+                            <div class="details">
+                                <span class="title">온라인 집들이 제목</span>
+                                <p class="desc">게시글 미리보기</p>
+                            </div>
+                            <div class="info">
+                                <div class="rate">
+                                    <span class="star-blank"></span>
+                                    <span class="star-fill"></span>
+                                    <span class="score">4.5</span>
+                                </div>
+                                <div class="producer">Blro</div>
+                            </div>
                         </div>
-                        <span class="rate">
-                            <span class="blank"></span>
-                            <span class="score"></span>
-                        </span>
-                        <span class="producer">강경태</span>
-                    </li>
-                </ul>
-            </section>
-            <section id="specialist"></section>
-            <section id="review"></section>
+                        <div class="card">
+                            <div class="thumbnail">
+                                <div
+                                    style="
+                                        background-image: url(./resources/images/slide/image-1.jpg);
+                                    "
+                                    class="img-before"
+                                ></div>
+                                <div
+                                    style="
+                                        background-image: url(./resources/images/slide/image-3.jpg);
+                                    "
+                                    class="img-after"
+                                ></div>
+                            </div>
+                            <div class="details">
+                                <span class="title">온라인 집들이 제목</span>
+                                <p class="desc">게시글 미리보기</p>
+                            </div>
+                            <div class="info">
+                                <div class="rate">
+                                    <span class="star-blank"></span>
+                                    <span class="star-fill"></span>
+                                    <span class="score">4.5</span>
+                                </div>
+                                <div class="producer">Blro</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="thumbnail">
+                                <div
+                                    style="
+                                        background-image: url(./resources/images/slide/image-1.jpg);
+                                    "
+                                    class="img-before"
+                                ></div>
+                                <div
+                                    style="
+                                        background-image: url(./resources/images/slide/image-3.jpg);
+                                    "
+                                    class="img-after"
+                                ></div>
+                            </div>
+                            <div class="details">
+                                <span class="title">온라인 집들이 제목</span>
+                                <p class="desc">게시글 미리보기</p>
+                            </div>
+                            <div class="info">
+                                <div class="rate">
+                                    <span class="star-blank"></span>
+                                    <span class="star-fill"></span>
+                                    <span class="score">4.5</span>
+                                </div>
+                                <div class="producer">Blro</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="button more">더보기</a>
+                </section>
+                <section id="specialist">
+                    <h2 class="title">전문가</h2>
+                    <div class="contents">
+                        <div class="card">
+                            <div class="page">
+                                <div class="side-front">
+                                    <img
+                                        src="./resources/images/profiles/p1.png"
+                                        title="프로필"
+                                        alt="프로필"
+                                        class="profiles"
+                                    />
+                                </div>
+                                <div class="side-back">
+                                    <span class="name">강경태</span>
+                                    <span class="id">Blro</span>
+                                    <a href="#" class="more">자세히 보기</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="page">
+                                <div class="side-front">
+                                    <img
+                                        src="./resources/images/profiles/p1.png"
+                                        title="프로필"
+                                        alt="프로필"
+                                        class="profiles"
+                                    />
+                                </div>
+                                <div class="side-back">
+                                    <span class="name">강경태</span>
+                                    <span class="id">Blro</span>
+                                    <a href="#" class="more">자세히 보기</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="page">
+                                <div class="side-front">
+                                    <img
+                                        src="./resources/images/profiles/p1.png"
+                                        title="프로필"
+                                        alt="프로필"
+                                        class="profiles"
+                                    />
+                                </div>
+                                <div class="side-back">
+                                    <span class="name">강경태</span>
+                                    <span class="id">Blro</span>
+                                    <a href="#" class="more">자세히 보기</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="page">
+                                <div class="side-front">
+                                    <img
+                                        src="./resources/images/profiles/p1.png"
+                                        title="프로필"
+                                        alt="프로필"
+                                        class="profiles"
+                                    />
+                                </div>
+                                <div class="side-back">
+                                    <span class="name">강경태</span>
+                                    <span class="id">Blro</span>
+                                    <a href="#" class="more">자세히 보기</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="button more">더보기</a>
+                </section>
+                <section id="review">
+                    <h2 class="title">전문가 시공 후기</h2>
+                    <div class="contents">
+                        <div class="card">
+                            <div
+                                style="
+                                    background-image: url(./resources/images/slide/image-1.jpg);
+                                "
+                                class="thumbnail"
+                            ></div>
+                            <div class="details">
+                                <span class="desc">후기 내용입니다.</span>
+                                <span class="author">최하영#LyuSeolhwa</span>
+                                <div class="info">
+                                    <span class="specia">강경태#Blro</span>
+                                    <span class="price">725000</span>
+                                </div>
+                                <div class="rate">
+                                    <span class="star-blank"></span>
+                                    <span class="star-fill"></span>
+                                    <span class="score">5.0</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div
+                                style="
+                                    background-image: url(./resources/images/slide/image-1.jpg);
+                                "
+                                class="thumbnail"
+                            ></div>
+                            <div class="details">
+                                <span class="desc">후기 내용입니다.</span>
+                                <span class="author">최하영#LyuSeolhwa</span>
+                                <div class="info">
+                                    <span class="specia">강경태#Blro</span>
+                                    <span class="price">725000</span>
+                                </div>
+                                <div class="rate">
+                                    <span class="star-blank"></span>
+                                    <span class="star-fill"></span>
+                                    <span class="score">5.0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="button more">더보기</a>
+                </section>
+            </main>
         </article>
 
-        <footer></footer>
+        <footer>
+            <span class="copyright"
+                >Copyright(c) 2020 내집꾸미기. All rights reserved.</span
+            >
+        </footer>
     </body>
 </html>
