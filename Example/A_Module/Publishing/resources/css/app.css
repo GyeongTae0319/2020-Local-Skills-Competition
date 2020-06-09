@@ -1,0 +1,107 @@
+body {
+  overflow-x: hidden;
+}
+
+/* 메인 비주얼 영역 */
+#carouselExampleIndicators {
+  max-height: 600px;
+  overflow: hidden;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.carousel-item {
+  transition: .6s ease-in-out, -webkit-transform .6s ease-in-out !important;
+}
+
+/* 메인 콘텐츠 */
+#main-contents > section {
+  margin-top: 70px;
+  margin-bottom: 100px;
+}
+
+/* 온라인 집들이 영역 */
+.card {
+  overflow: hidden;
+}
+.card-img-top.before {
+  margin-left: 0;
+  transition: margin-left .3s;
+}
+.card-img-top.after {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  transition: left .3s;
+}
+.card:hover .card-img-top.after {
+  left: 0;
+}
+.card:hover .card-img-top.before {
+  margin-left: -100%;
+}
+
+/* 전문가 영역 */
+.flip-card {
+  background-color: transparent;
+  width: 100%;
+  perspective: 1000px;
+}
+.flip-card:after {
+  content: '';
+  display: block;
+  padding-bottom: 100%;
+}
+
+.flip-card-inner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #333;
+  color: white;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 푸터 영역 */
+#footer {
+  height: 100px;
+  line-height: 100px;
+  background-color: #333;
+  color: #fff;
+}
+
+/* 모바일 버전 헤더 영역 */
+.navbar-toggler:hover + .navbar-collapse {
+  display: block !important;
+}
