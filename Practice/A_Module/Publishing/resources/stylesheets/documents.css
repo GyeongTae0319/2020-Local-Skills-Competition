@@ -1,0 +1,175 @@
+/**페이지 공통 스타일 설정
+ *
+ * 공통 문서 스타일 정의
+ *   > 모든 요소(*)
+ *   > body와 html
+ *
+ * 공통되는 요소 정의
+ *   > 상단 Header와 하단 Footer
+ *   > 별점 표시 박스
+ */
+
+/*/ 공통 문서 스타일 정의 /*/
+/* 스타일 초기화 */
+* {
+    box-sizing: border-box;
+
+    padding: 0;
+    margin: 0;
+
+    border: none;
+
+    list-style: inherit;
+
+    color: inherit;
+    font: inherit;
+    text-decoration: inherit;
+}
+/* 최상위 스타일 */
+html,
+body {
+    height: 100%;
+
+    overflow-x: hidden;
+
+    list-style: none;
+
+    color: var(--text-color);
+    text-decoration: none;
+}
+body {
+    padding-top: var(--header-height);
+    padding-bottom: var(--footer-height);
+}
+
+/* CSS 변수 */
+:root {
+    --text-color: #222222;
+
+    --header-height: 48px;
+    --footer-height: 128px;
+}
+
+/*/ Header 스타일 /*/
+header {
+    z-index: 1;
+
+    position: absolute;
+    top: 0;
+
+    width: 100%;
+    height: var(--header-height);
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+header .contents {
+    display: flex;
+
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+}
+/* 브랜드 */
+header .brand {
+    display: flex;
+
+    height: 100%;
+    margin-right: 16px;
+    padding: 8px;
+}
+header .brand .logo {
+    height: 100%;
+    margin-right: 8px;
+}
+header .brand .title {
+    height: 1.2em;
+
+    align-self: center;
+}
+/* 링크 그룹 */
+header .link-group {
+    display: flex;
+
+    flex-grow: 1;
+
+    justify-content: space-between;
+}
+header .link-group .link {
+    color: #777777;
+
+    transition: color 0.1s;
+}
+header .link-group .link.active,
+header .link-group .link:focus,
+header .link-group .link:hover {
+    color: var(--text-color);
+}
+/* 네이게이션 */
+header nav {
+    display: flex;
+}
+header nav .item {
+    display: flex;
+
+    height: 100%;
+    padding: 0 16px;
+
+    flex-direction: column;
+    justify-content: center;
+}
+/* 로그인 및 회원가입 */
+header .account {
+    display: flex;
+
+    padding: 8px;
+}
+header .account .register {
+    margin-right: 16px;
+
+    align-self: center;
+
+    text-decoration: underline;
+    font-size: 0.9em;
+}
+header .account .login {
+    display: flex;
+
+    padding: 0 8px;
+
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+
+    flex-direction: column;
+    justify-content: center;
+
+    transition: border-color 0.1s;
+}
+header .account .login:focus,
+header .account .login:hover {
+    border-color: #999999;
+}
+
+/*/ Footer 스타일 /*/
+footer {
+    position: absolute;
+    bottom: 0;
+
+    width: 100%;
+    height: var(--footer-height);
+
+    background-color: #222222;
+
+    color: #eeeeee;
+}
+footer .contents {
+    display: flex;
+
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+
+    flex-direction: column;
+    justify-content: center;
+}
