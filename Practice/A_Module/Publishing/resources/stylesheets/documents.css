@@ -12,237 +12,346 @@
 /*/ 공통 문서 스타일 정의 /*/
 /* 스타일 초기화 */
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 
-	padding: 0;
-	margin: 0;
+    padding: 0;
+    margin: 0;
 
     border: none;
     outline: none;
 
     list-style: inherit;
-    
+
     background: none;
 
-	color: inherit;
-	font: inherit;
-	text-decoration: inherit;
+    color: inherit;
+    font: inherit;
+    text-decoration: inherit;
 }
 /* 최상위 스타일 */
 html {
-	height: 100%;
+    height: 100%;
 
-	overflow-x: hidden;
+    list-style: none;
 
-	list-style: none;
+    overflow-x: hidden;
 
-	color: var(--text-color);
-	text-decoration: none;
+    color: var(--text-color);
+    text-decoration: none;
 }
 body {
-	display: flex;
+    display: flex;
 
-	min-height: 100%;
+    min-height: 100%;
 
-	flex-direction: column;
+    overflow-x: hidden;
+
+    flex-direction: column;
 }
 
 /* 전역 변수 */
 :root {
-	--text-color: #222222;
+    --text-color: #222222;
 
-	--header-height: 48px;
-	--footer-height: 128px;
+    --header-height: 48px;
+    --footer-height: 128px;
 }
 
 /*/ Header 스타일 /*/
 header {
-	z-index: 1;
+    z-index: 1;
 
-	width: 100%;
-	height: var(--header-height);
+    position: relative;
 
-	background-color: #ffffff;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: var(--header-height);
+
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 header .contents {
-	display: flex;
+    display: flex;
 
-	width: 100%;
-	max-width: 1200px;
-	height: 100%;
-	margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+}
+header .nav-btn {
+    display: none;
 }
 /* 브랜드 */
 header .brand {
-	display: flex;
+    display: flex;
 
-	height: 100%;
-	margin-right: 16px;
-	padding: 8px;
+    height: 100%;
+    margin-right: 16px;
+    padding: 8px;
 }
 header .brand .logo {
-	height: 100%;
-	margin-right: 8px;
+    height: 100%;
+    margin-right: 8px;
 }
 header .brand .title {
-	height: 1.2em;
+    height: 1.2em;
 
-	align-self: center;
+    align-self: center;
 }
 /* 링크 그룹 */
 header .link-group {
-	display: flex;
+    display: flex;
 
-	flex-grow: 1;
+    flex-grow: 1;
 
-	justify-content: space-between;
+    justify-content: space-between;
 }
 header .link-group .link {
-	color: #777777;
+    color: #777777;
 
-	transition: color 0.1s;
+    transition: color 0.1s;
 }
 header .link-group .link.active,
 header .link-group .link:focus,
 header .link-group .link:hover {
-	color: var(--text-color);
+    color: var(--text-color);
 }
 /* 네이게이션 */
 header nav {
-	display: flex;
+    display: flex;
 }
 header nav .item {
-	display: flex;
+    display: flex;
 
-	height: 100%;
-	padding: 0 16px;
+    height: 100%;
+    padding: 0 16px;
 
-	flex-direction: column;
-	justify-content: center;
+    flex-direction: column;
+    justify-content: center;
 }
 /* 로그인 및 회원가입 */
 header .account {
-	display: flex;
+    display: flex;
 
-	padding: 8px;
+    padding: 8px;
 }
 header .account .register {
-	margin-right: 16px;
+    margin-right: 16px;
 
-	align-self: center;
+    align-self: center;
 
-	text-decoration: underline;
-	font-size: 0.9em;
+    text-decoration: underline;
+    font-size: 0.9em;
 }
 header .account .login {
-	display: flex;
+    display: flex;
 
-	padding: 0 8px;
+    padding: 0 8px;
 
-	flex-direction: column;
-	justify-content: center;
+    flex-direction: column;
+    justify-content: center;
 }
 .user-id::before {
-	content: "@";
+    content: "@";
 }
 
 /*/ 본문 스타일 /*/
 section {
-	margin-bottom: 64px;
+    margin-bottom: 64px;
 }
 section > .title {
-	font-size: 2em;
-	text-align: center;
+    font-size: 2em;
+    text-align: center;
 }
 section .more {
-	display: flex;
+    display: flex;
 
-	width: 128px;
-	height: 48px;
+    width: 128px;
+    height: 48px;
     padding: 8px;
     margin: 0 auto;
     margin-top: 32px;
 
-	flex-direction: column;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
-	font-size: 1.2em;
+    font-size: 1.2em;
 }
 
 /*/ 별점 스타일 /*/
 .star-rate {
-	display: flex;
+    display: flex;
 }
 .star-rate .stars {
-	display: flex;
+    display: flex;
 
-	width: calc(var(--star-rate-height, 32px) * 5);
-	height: var(--star-rate-height, 32px);
-	margin-right: 8px;
+    width: calc(var(--star-rate-height, 32px) * 5);
+    height: var(--star-rate-height, 32px);
+    margin-right: 8px;
 }
 .star-rate .stars > * {
-	height: 100%;
-	background-size: var(--star-rate-height, 32px);
+    height: 100%;
+    background-size: var(--star-rate-height, 32px);
 }
 .star-rate .stars .fill {
-	width: calc(var(--star-rate-height, 32px) * var(--star-rate-score, 5));
+    width: calc(var(--star-rate-height, 32px) * var(--star-rate-score, 5));
 
-	background-image: url("../images/icon/star_fill.svg");
-	background-position: left;
+    background-image: url("../images/icon/star_fill.svg");
+    background-position: left;
 }
 .star-rate .stars .blank {
-	flex-grow: 1;
+    flex-grow: 1;
 
-	background-image: url("../images/icon/star_blank.svg");
-	background-position: right;
+    background-image: url("../images/icon/star_blank.svg");
+    background-position: right;
 }
 .star-rate .score {
-	display: flex;
+    display: flex;
 
-	flex-direction: column;
-	justify-content: center;
+    flex-direction: column;
+    justify-content: center;
 
-	font-size: calc(var(--star-rate-height, 32px) * 0.6);
+    font-size: calc(var(--star-rate-height, 32px) * 0.6);
 }
 
 /*/ 버튼 스타일 /*/
 .btn {
     cursor: pointer;
 
-	border: 1px solid #cccccc;
-	border-radius: 4px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
 
-	color: #777777;
+    color: #777777;
 
-	transition: border-color 0.15s, color 0.1s;
+    transition: border-color 0.15s, color 0.1s;
 }
 .btn:focus,
 .btn:hover {
-	border-color: #999999;
+    border-color: #999999;
 
-	color: var(--text-color);
+    color: var(--text-color);
 }
 
 /*/ Footer 스타일 /*/
 footer {
-	width: 100%;
-	height: var(--footer-height);
-	margin-top: auto;
+    width: 100%;
+    height: var(--footer-height);
+    margin-top: auto;
 
-	background-color: #222222;
+    background-color: #222222;
 
-	color: #eeeeee;
+    color: #eeeeee;
 }
 footer .contents {
-	display: flex;
+    display: flex;
 
-	max-width: 1200px;
-	height: 100%;
-	margin: 0 auto;
-	padding: 0 16px;
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
 
-	flex-direction: column;
-	justify-content: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/**모바일 스타일
+ *   > 너비 768px 부터 모바일 페이지로 전환
+ *
+ * 네비게이션과 로그인 숨기기
+ *   > 햄버거 버튼 보이기
+ */
+@media screen and (max-width: 774px) {
+    body::-webkit-scrollbar {
+        display: none;
+    }
+
+    header .nav-btn {
+        display: block;
+
+        width: 48px;
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+    header .nav-btn .btn {
+        position: relative;
+
+        width: 32px;
+        height: 32px;
+        margin: 8px;
+    }
+    header .nav-btn:hover {
+        border-color: #777777;
+    }
+    header .nav-btn .bar,
+    header .nav-btn .bar::before,
+    header .nav-btn .bar::after {
+        content: "";
+
+        display: block;
+
+        position: absolute;
+
+        width: 24px;
+        height: 2px;
+
+        background-color: #cccccc;
+
+        transition: background-color 0.1s;
+    }
+    header .nav-btn .bar {
+        top: 14px;
+        left: 3px;
+    }
+    header .nav-btn .bar::before {
+        bottom: 6px;
+    }
+    header .nav-btn .bar::after {
+        top: 6px;
+    }
+    header .nav-btn:hover .bar,
+    header .nav-btn:hover .bar::before,
+    header .nav-btn:hover .bar::after {
+        background-color: #777777;
+    }
+
+    header .link-group {
+        display: none;
+
+        position: absolute;
+        top: 48px;
+
+        width: 100%;
+
+        border: 1px solid #cccccc;
+        border-width: 1px 0;
+
+        flex-direction: column;
+
+        background-color: #ffffff;
+    }
+    header .nav-btn:hover ~ .link-group,
+    header .link-group:hover {
+        display: flex;
+    }
+    header .link-group nav {
+        flex-direction: column;
+    }
+    header nav .item {
+        padding: 8px 32px;
+    }
+    header .link-group .account {
+        flex-flow: row-reverse;
+    }
+    header .link-group .account .login {
+        margin-right: 8px;
+        padding: 8px 16px;
+    }
+    header .link-group .account .register {
+        margin-right: auto;
+    }
+
+    footer {
+        font-size: 0.8em;
+        text-align: center;
+    }
 }

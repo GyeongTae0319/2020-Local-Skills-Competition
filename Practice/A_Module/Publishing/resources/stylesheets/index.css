@@ -9,8 +9,7 @@
 
 /* 전역 변수 */
 :root {
-	--visual-slide-height: 640px;
-	--list-item-width: 300px;
+    --visual-slide-height: 640px;
 }
 
 /*/ 비주얼 이미지 슬라이드 /*/
@@ -19,239 +18,287 @@
  *   > 1 → 2 → 3 → 2 → 1 순서
  */
 @keyframes auto-slide {
-	0%,
-	12.5% {
-		right: 0;
-	}
-	25%,
-	37.5% {
-		right: 100%;
-	}
-	50%,
-	62.5% {
-		right: 200%;
-	}
-	75%,
-	87.5% {
-		right: 100%;
-	}
-	100% {
-		right: 0;
-	}
+    0%,
+    12.5% {
+        right: 0;
+    }
+    25%,
+    37.5% {
+        right: 100%;
+    }
+    50%,
+    62.5% {
+        right: 200%;
+    }
+    75%,
+    87.5% {
+        right: 100%;
+    }
+    100% {
+        right: 0;
+    }
 }
 #visualSlide .carousel .viewport {
-	display: flex;
+    display: flex;
 
-	position: relative;
+    position: relative;
 
-	height: var(--visual-slide-height);
+    height: var(--visual-slide-height);
 
-	animation-name: auto-slide;
-	animation-duration: 16s;
-	animation-timing-function: ease-in-out;
-	animation-iteration-count: infinite;
+    animation-name: auto-slide;
+    animation-duration: 16s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
 }
 #visualSlide .viewport [class|="slide"] {
-	width: 100%;
-	height: 100%;
-	flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
 
-	background-position: center;
-	background-size: cover;
+    background-position: center;
+    background-size: cover;
 }
 
 /*/ 온라인 집들이 /*/
 #housewarming .list {
-	display: flex;
+    display: flex;
 
-	width: 100%;
-	max-width: 1360px;
-	margin: 0 auto;
-	padding: 0 16px;
+    width: 100%;
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 16px;
 
-	flex-wrap: wrap;
-	justify-content: center;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 #housewarming .list .item {
-	width: var(--list-item-width);
-	margin: 0 16px;
-	margin-top: 32px;
-	flex-shrink: 0;
+    width: 300px;
+    margin: 0 16px;
+    margin-top: 32px;
+    flex-shrink: 0;
 
-	border: 1px solid #cccccc;
-	border-radius: 4px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
 
-	overflow: hidden;
+    overflow: hidden;
 }
 #housewarming .item .thumbnail {
-	display: flex;
+    display: flex;
 
-	height: 360px;
+    height: 360px;
 }
 #housewarming .item .thumbnail > * {
-	width: 100%;
-	height: 100%;
-	flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
 
-	background-position: center;
-	background-size: cover;
+    background-position: center;
+    background-size: cover;
 }
 #housewarming .item .thumbnail .after {
-	position: relative;
-	right: 0;
+    position: relative;
+    right: 0;
 
-	transition: right 0.5s ease-in-out;
+    transition: right 0.5s ease-in-out;
 }
 #housewarming .item .thumbnail:hover .after {
-	right: 100%;
+    right: 100%;
 }
 #housewarming .details {
-	display: flex;
+    display: flex;
 
-	height: 40px;
-	padding: 8px;
+    height: 40px;
+    padding: 8px;
 
-	border-top: 1px solid #cccccc;
+    border-top: 1px solid #cccccc;
 
-	justify-content: space-between;
+    justify-content: space-between;
 
-	background-color: #f5f5f5;
+    background-color: #f5f5f5;
 
-	color: #777777;
+    color: #777777;
 }
 #housewarming .star-rate {
-	--star-rate-height: 24px;
+    --star-rate-height: 24px;
 }
 
 /*/ 전문가 /*/
 #specialist .list {
-	display: flex;
+    display: flex;
 
-	width: 100%;
-	max-width: 1360px;
-	margin: 0 auto;
-	padding: 0 16px;
+    width: 100%;
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 16px;
 
-	flex-wrap: wrap;
-	justify-content: center;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 #specialist .list .item {
-	width: var(--list-item-width);
-	margin: 0 16px;
-	margin-top: 32px;
+    width: 300px;
+    margin: 0 16px;
+    margin-top: 32px;
+    flex-shrink: 0;
 
-	perspective: 2048px;
+    perspective: 2048px;
 }
 #specialist .item .flip-card {
-	position: relative;
+    position: relative;
 
-	height: 360px;
+    height: 360px;
 
-	transition: transform 0.5s;
-	transform-style: preserve-3d;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
 }
 #specialist .item:hover .flip-card {
-	transform: rotateY(180deg);
+    transform: rotateY(180deg);
 }
 #specialist .flip-card > * {
-	position: absolute;
-	top: 0;
-	left: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
 
-	width: 100%;
-	height: 100%;
+    width: 100%;
+    height: 100%;
 
-	border: 1px solid #cccccc;
-	border-radius: 4px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
 
-	overflow: hidden;
-	backface-visibility: hidden;
+    overflow: hidden;
+    backface-visibility: hidden;
 }
 #specialist .flip-card .front {
-	background-position: center;
-	background-size: cover;
+    background-position: center;
+    background-size: cover;
 }
 #specialist .flip-card .back {
-	display: flex;
+    display: flex;
 
-	flex-direction: column;
-	justify-content: center;
+    flex-direction: column;
+    justify-content: center;
 
-	background-color: #f5f5f5;
+    background-color: #f5f5f5;
 
-	text-align: center;
+    text-align: center;
 
-	transform: rotateY(180deg);
+    transform: rotateY(180deg);
 }
 #specialist .flip-card .back .user-name {
-	font-size: 1.75em;
+    font-size: 1.75em;
 }
 
 /*/ 리뷰 /*/
 #review .list {
-	display: flex;
+    display: flex;
 
-	width: 100%;
-	max-width: 1360px;
-	margin: 0 auto;
-	padding: 0 32px;
+    width: 100%;
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 32px;
 
-	flex-direction: column;
+    flex-direction: column;
 }
 #review .list .item {
-	display: flex;
+    display: flex;
 
-	height: 240px;
-	margin-top: 32px;
+    height: 240px;
+    margin-top: 32px;
 
-	border: 1px solid #cccccc;
-	border-radius: 4px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
 
-	overflow: hidden;
+    overflow: hidden;
 }
 #review .item .thumbnail {
-	width: 360px;
-	height: 100%;
+    width: 360px;
+    height: 100%;
 
-	background-position: center;
-	background-size: cover;
+    background-position: center;
+    background-size: cover;
 }
 #review .item .details {
-	display: flex;
+    display: flex;
 
-	flex-grow: 1;
-	height: 100%;
-	padding: 32px;
+    flex-grow: 1;
+    height: 100%;
+    padding: 32px;
 
-	border-left: 1px solid #cccccc;
+    border-left: 1px solid #cccccc;
 
-	flex-direction: column;
+    flex-direction: column;
 
-	color: #555555;
+    color: #555555;
 }
 #review .item .review {
-	display: flex;
-
-	margin-bottom: 8px;
+    margin-bottom: 8px;
 }
 #review .item .review .contents {
-	margin-right: 16px;
+    display: inline;
 
-	color: var(--text-color);
-	font-size: 1.5em;
+    margin-right: 16px;
+
+    color: var(--text-color);
+    font-size: 1.5em;
 }
 #review .item .review .author {
-	align-self: center;
+    display: inline-block;
+
+    align-self: center;
 }
 #review .item .review .author::before {
-	content: "-";
+    content: "-";
 }
 #review .item .specialist {
-	margin-top: auto;
+    margin-top: auto;
 }
 #review .item .specialist::before {
-	content: "담당: ";
+    content: "담당: ";
 }
 #review .item .pay::before {
-	content: "가격: \\";
+    content: "가격: \\";
+}
+
+/**모바일 스타일
+ *   > 너비 768px 부터 모바일 페이지로 전환
+ *
+ * 후기 영역 카드로 변환
+ */
+@media (max-width: 768px) {
+    :root {
+        --visual-slide-height: 320px;
+    }
+
+    #review .list {
+        padding: 0 16px;
+
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    #review .item {
+        width: 300px;
+        height: 360px !important;
+        margin: 0 16px;
+        flex-shrink: 0;
+
+        flex-direction: column;
+    }
+    #review .item .details {
+        border: none;
+    }
+    #review .item .thumbnail {
+        width: 100%;
+        height: 150px;
+        flex-shrink: 0;
+    }
+    #review .item .review .contents {
+        font-size: 1em;
+    }
+    #review .item .star-rate {
+        --star-rate-height: 18px;
+    }
+    #review .item .specialist,
+    #review .item .pay {
+        font-size: 0.8em;
+    }
 }
