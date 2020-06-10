@@ -12,164 +12,237 @@
 /*/ 공통 문서 스타일 정의 /*/
 /* 스타일 초기화 */
 * {
-    box-sizing: border-box;
+	box-sizing: border-box;
 
-    padding: 0;
-    margin: 0;
+	padding: 0;
+	margin: 0;
 
     border: none;
+    outline: none;
 
     list-style: inherit;
+    
+    background: none;
 
-    color: inherit;
-    font: inherit;
-    text-decoration: inherit;
+	color: inherit;
+	font: inherit;
+	text-decoration: inherit;
 }
 /* 최상위 스타일 */
-html,
-body {
-    height: 100%;
+html {
+	height: 100%;
 
-    overflow-x: hidden;
+	overflow-x: hidden;
 
-    list-style: none;
+	list-style: none;
 
-    color: var(--text-color);
-    text-decoration: none;
+	color: var(--text-color);
+	text-decoration: none;
 }
 body {
-    padding-top: var(--header-height);
-    padding-bottom: var(--footer-height);
+	display: flex;
+
+	min-height: 100%;
+
+	flex-direction: column;
 }
 
-/* CSS 변수 */
+/* 전역 변수 */
 :root {
-    --text-color: #222222;
+	--text-color: #222222;
 
-    --header-height: 48px;
-    --footer-height: 128px;
+	--header-height: 48px;
+	--footer-height: 128px;
 }
 
 /*/ Header 스타일 /*/
 header {
-    z-index: 1;
+	z-index: 1;
 
-    position: absolute;
-    top: 0;
+	width: 100%;
+	height: var(--header-height);
 
-    width: 100%;
-    height: var(--header-height);
-
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	background-color: #ffffff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 header .contents {
-    display: flex;
+	display: flex;
 
-    width: 100%;
-    max-width: 1200px;
-    height: 100%;
-    margin: 0 auto;
+	width: 100%;
+	max-width: 1200px;
+	height: 100%;
+	margin: 0 auto;
 }
 /* 브랜드 */
 header .brand {
-    display: flex;
+	display: flex;
 
-    height: 100%;
-    margin-right: 16px;
-    padding: 8px;
+	height: 100%;
+	margin-right: 16px;
+	padding: 8px;
 }
 header .brand .logo {
-    height: 100%;
-    margin-right: 8px;
+	height: 100%;
+	margin-right: 8px;
 }
 header .brand .title {
-    height: 1.2em;
+	height: 1.2em;
 
-    align-self: center;
+	align-self: center;
 }
 /* 링크 그룹 */
 header .link-group {
-    display: flex;
+	display: flex;
 
-    flex-grow: 1;
+	flex-grow: 1;
 
-    justify-content: space-between;
+	justify-content: space-between;
 }
 header .link-group .link {
-    color: #777777;
+	color: #777777;
 
-    transition: color 0.1s;
+	transition: color 0.1s;
 }
 header .link-group .link.active,
 header .link-group .link:focus,
 header .link-group .link:hover {
-    color: var(--text-color);
+	color: var(--text-color);
 }
 /* 네이게이션 */
 header nav {
-    display: flex;
+	display: flex;
 }
 header nav .item {
-    display: flex;
+	display: flex;
 
-    height: 100%;
-    padding: 0 16px;
+	height: 100%;
+	padding: 0 16px;
 
-    flex-direction: column;
-    justify-content: center;
+	flex-direction: column;
+	justify-content: center;
 }
 /* 로그인 및 회원가입 */
 header .account {
-    display: flex;
+	display: flex;
 
-    padding: 8px;
+	padding: 8px;
 }
 header .account .register {
-    margin-right: 16px;
+	margin-right: 16px;
 
-    align-self: center;
+	align-self: center;
 
-    text-decoration: underline;
-    font-size: 0.9em;
+	text-decoration: underline;
+	font-size: 0.9em;
 }
 header .account .login {
-    display: flex;
+	display: flex;
 
-    padding: 0 8px;
+	padding: 0 8px;
 
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-
-    flex-direction: column;
-    justify-content: center;
-
-    transition: border-color 0.1s;
+	flex-direction: column;
+	justify-content: center;
 }
-header .account .login:focus,
-header .account .login:hover {
-    border-color: #999999;
+.user-id::before {
+	content: "@";
+}
+
+/*/ 본문 스타일 /*/
+section {
+	margin-bottom: 64px;
+}
+section > .title {
+	font-size: 2em;
+	text-align: center;
+}
+section .more {
+	display: flex;
+
+	width: 128px;
+	height: 48px;
+    padding: 8px;
+    margin: 0 auto;
+    margin-top: 32px;
+
+	flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+	font-size: 1.2em;
+}
+
+/*/ 별점 스타일 /*/
+.star-rate {
+	display: flex;
+}
+.star-rate .stars {
+	display: flex;
+
+	width: calc(var(--star-rate-height, 32px) * 5);
+	height: var(--star-rate-height, 32px);
+	margin-right: 8px;
+}
+.star-rate .stars > * {
+	height: 100%;
+	background-size: var(--star-rate-height, 32px);
+}
+.star-rate .stars .fill {
+	width: calc(var(--star-rate-height, 32px) * var(--star-rate-score, 5));
+
+	background-image: url("../images/icon/star_fill.svg");
+	background-position: left;
+}
+.star-rate .stars .blank {
+	flex-grow: 1;
+
+	background-image: url("../images/icon/star_blank.svg");
+	background-position: right;
+}
+.star-rate .score {
+	display: flex;
+
+	flex-direction: column;
+	justify-content: center;
+
+	font-size: calc(var(--star-rate-height, 32px) * 0.6);
+}
+
+/*/ 버튼 스타일 /*/
+.btn {
+    cursor: pointer;
+
+	border: 1px solid #cccccc;
+	border-radius: 4px;
+
+	color: #777777;
+
+	transition: border-color 0.15s, color 0.1s;
+}
+.btn:focus,
+.btn:hover {
+	border-color: #999999;
+
+	color: var(--text-color);
 }
 
 /*/ Footer 스타일 /*/
 footer {
-    position: absolute;
-    bottom: 0;
+	width: 100%;
+	height: var(--footer-height);
+	margin-top: auto;
 
-    width: 100%;
-    height: var(--footer-height);
+	background-color: #222222;
 
-    background-color: #222222;
-
-    color: #eeeeee;
+	color: #eeeeee;
 }
 footer .contents {
-    display: flex;
+	display: flex;
 
-    max-width: 1200px;
-    height: 100%;
-    margin: 0 auto;
-    padding: 0 16px;
+	max-width: 1200px;
+	height: 100%;
+	margin: 0 auto;
+	padding: 0 16px;
 
-    flex-direction: column;
-    justify-content: center;
+	flex-direction: column;
+	justify-content: center;
 }

@@ -7,4 +7,251 @@
  *   > 시공 후기
  */
 
+/* 전역 변수 */
+:root {
+	--visual-slide-height: 640px;
+	--list-item-width: 300px;
+}
 
+/*/ 비주얼 이미지 슬라이드 /*/
+/**애니메이션
+ * 자동 슬라이드: 16초 기준(페이지 당 2초, 슬라이드 2초)
+ *   > 1 → 2 → 3 → 2 → 1 순서
+ */
+@keyframes auto-slide {
+	0%,
+	12.5% {
+		right: 0;
+	}
+	25%,
+	37.5% {
+		right: 100%;
+	}
+	50%,
+	62.5% {
+		right: 200%;
+	}
+	75%,
+	87.5% {
+		right: 100%;
+	}
+	100% {
+		right: 0;
+	}
+}
+#visualSlide .carousel .viewport {
+	display: flex;
+
+	position: relative;
+
+	height: var(--visual-slide-height);
+
+	animation-name: auto-slide;
+	animation-duration: 16s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+#visualSlide .viewport [class|="slide"] {
+	width: 100%;
+	height: 100%;
+	flex-shrink: 0;
+
+	background-position: center;
+	background-size: cover;
+}
+
+/*/ 온라인 집들이 /*/
+#housewarming .list {
+	display: flex;
+
+	width: 100%;
+	max-width: 1360px;
+	margin: 0 auto;
+	padding: 0 16px;
+
+	flex-wrap: wrap;
+	justify-content: center;
+}
+#housewarming .list .item {
+	width: var(--list-item-width);
+	margin: 0 16px;
+	margin-top: 32px;
+	flex-shrink: 0;
+
+	border: 1px solid #cccccc;
+	border-radius: 4px;
+
+	overflow: hidden;
+}
+#housewarming .item .thumbnail {
+	display: flex;
+
+	height: 360px;
+}
+#housewarming .item .thumbnail > * {
+	width: 100%;
+	height: 100%;
+	flex-shrink: 0;
+
+	background-position: center;
+	background-size: cover;
+}
+#housewarming .item .thumbnail .after {
+	position: relative;
+	right: 0;
+
+	transition: right 0.5s ease-in-out;
+}
+#housewarming .item .thumbnail:hover .after {
+	right: 100%;
+}
+#housewarming .details {
+	display: flex;
+
+	height: 40px;
+	padding: 8px;
+
+	border-top: 1px solid #cccccc;
+
+	justify-content: space-between;
+
+	background-color: #f5f5f5;
+
+	color: #777777;
+}
+#housewarming .star-rate {
+	--star-rate-height: 24px;
+}
+
+/*/ 전문가 /*/
+#specialist .list {
+	display: flex;
+
+	width: 100%;
+	max-width: 1360px;
+	margin: 0 auto;
+	padding: 0 16px;
+
+	flex-wrap: wrap;
+	justify-content: center;
+}
+#specialist .list .item {
+	width: var(--list-item-width);
+	margin: 0 16px;
+	margin-top: 32px;
+
+	perspective: 2048px;
+}
+#specialist .item .flip-card {
+	position: relative;
+
+	height: 360px;
+
+	transition: transform 0.5s;
+	transform-style: preserve-3d;
+}
+#specialist .item:hover .flip-card {
+	transform: rotateY(180deg);
+}
+#specialist .flip-card > * {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: 100%;
+	height: 100%;
+
+	border: 1px solid #cccccc;
+	border-radius: 4px;
+
+	overflow: hidden;
+	backface-visibility: hidden;
+}
+#specialist .flip-card .front {
+	background-position: center;
+	background-size: cover;
+}
+#specialist .flip-card .back {
+	display: flex;
+
+	flex-direction: column;
+	justify-content: center;
+
+	background-color: #f5f5f5;
+
+	text-align: center;
+
+	transform: rotateY(180deg);
+}
+#specialist .flip-card .back .user-name {
+	font-size: 1.75em;
+}
+
+/*/ 리뷰 /*/
+#review .list {
+	display: flex;
+
+	width: 100%;
+	max-width: 1360px;
+	margin: 0 auto;
+	padding: 0 32px;
+
+	flex-direction: column;
+}
+#review .list .item {
+	display: flex;
+
+	height: 240px;
+	margin-top: 32px;
+
+	border: 1px solid #cccccc;
+	border-radius: 4px;
+
+	overflow: hidden;
+}
+#review .item .thumbnail {
+	width: 360px;
+	height: 100%;
+
+	background-position: center;
+	background-size: cover;
+}
+#review .item .details {
+	display: flex;
+
+	flex-grow: 1;
+	height: 100%;
+	padding: 32px;
+
+	border-left: 1px solid #cccccc;
+
+	flex-direction: column;
+
+	color: #555555;
+}
+#review .item .review {
+	display: flex;
+
+	margin-bottom: 8px;
+}
+#review .item .review .contents {
+	margin-right: 16px;
+
+	color: var(--text-color);
+	font-size: 1.5em;
+}
+#review .item .review .author {
+	align-self: center;
+}
+#review .item .review .author::before {
+	content: "-";
+}
+#review .item .specialist {
+	margin-top: auto;
+}
+#review .item .specialist::before {
+	content: "담당: ";
+}
+#review .item .pay::before {
+	content: "가격: \\";
+}
