@@ -44,8 +44,6 @@ body {
 
     min-height: 100%;
 
-    overflow-x: hidden;
-
     flex-direction: column;
 }
 
@@ -158,7 +156,9 @@ header .account .login {
 section {
     margin-bottom: 64px;
 }
-section > .title {
+section h2 {
+    height: 48px;
+
     font-size: 2em;
     text-align: center;
 }

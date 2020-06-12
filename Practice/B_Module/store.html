@@ -1,92 +1,111 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>내집꾸미기</title>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>내집꾸미기</title>
 
-        <link
-            rel="shortcut icon"
-            href="./resources/images/brand/logo.png"
-            type="image/x-icon"
-        />
+		<link
+			rel="shortcut icon"
+			href="./resources/images/brand/logo.png"
+			type="image/x-icon"
+		/>
 
-        <link rel="stylesheet" href="./resources/stylesheets/documents.css" />
-        <link rel="stylesheet" href="./resources/stylesheets/store.css" />
+		<link rel="stylesheet" href="./resources/stylesheets/documents.css" />
+		<link rel="stylesheet" href="./resources/stylesheets/store.css" />
 
-        <script src="./resources/lib/jquery-3.4.1.min.js"></script>
-        <script src="./resources/javascripts/store.js"></script>
-    </head>
-    <body>
-        <header>
-            <div class="contents">
-                <a href="#" class="brand">
-                    <img
-                        src="./resources/images/brand/logo.svg"
-                        title="로고"
-                        alt="로고"
-                        class="logo"
-                    />
-                    <img
-                        src="./resources/images/brand/title.svg"
-                        title="타이틀"
-                        alt="타이틀"
-                        class="title"
-                    />
-                </a>
-                <div for="navVisible" class="nav-btn">
-                    <div class="btn">
-                        <span class="bar"></span>
-                    </div>
-                </div>
-                <div class="link-group">
-                    <nav>
-                        <a href="./index.html" class="link item">홈</a>
-                        <a href="#" class="link item">온라인 집들이</a>
-                        <a href="./store.html" class="link item active"
-                            >스토어</a
-                        >
-                        <a href="#" class="link item">전문가</a>
-                        <a href="#" class="link item">시공 후기</a>
-                    </nav>
-                    <div class="account">
-                        <a href="#" class="link register">회원가입</a>
-                        <a href="#" class="link btn login">로그인</a>
-                    </div>
-                </div>
-            </div>
-        </header>
+		<script src="./resources/lib/jquery-3.4.1.min.js"></script>
+		<script src="./resources/javascripts/store.js"></script>
+	</head>
+	<body>
+		<header>
+			<div class="contents">
+				<a href="#" class="brand">
+					<img
+						src="./resources/images/brand/logo.svg"
+						title="로고"
+						alt="로고"
+						class="logo"
+					/>
+					<img
+						src="./resources/images/brand/title.svg"
+						title="타이틀"
+						alt="타이틀"
+						class="title"
+					/>
+				</a>
+				<div for="navVisible" class="nav-btn">
+					<div class="btn">
+						<span class="bar"></span>
+					</div>
+				</div>
+				<div class="link-group">
+					<nav>
+						<a href="./index.html" class="link item">홈</a>
+						<a href="#" class="link item">온라인 집들이</a>
+						<a href="./store.html" class="link item active"
+							>스토어</a
+						>
+						<a href="#" class="link item">전문가</a>
+						<a href="#" class="link item">시공 후기</a>
+					</nav>
+					<div class="account">
+						<a href="#" class="link register">회원가입</a>
+						<a href="#" class="link btn login">로그인</a>
+					</div>
+				</div>
+			</div>
+		</header>
 
-        <article>
-            <main>
-                <section id="product">
-                    <input
-                        type="text"
-                        placeholder="검색어를 입력해주세요."
-                        onkeyup="searchUpdate(this.value)"
-                        class="search-field"
-                    />
-                    <div class="shopping">
-                        <div class="drop-area">이곳에 상품을 넣어주세요.</div>
-                        <div class="basket">
-                            <span class="titl">구매 품목</span>
-                            <div class="itme-list"></div>
-                            <span class="total">전체</span>
-                        </div>
-                    </div>
-                    <div class="list">
-                        <span class="is-blank">일치하는 상품이 없습니다.</span>
-                    </div>
-                </section>
-            </main>
-        </article>
+		<!-- <article>
+			<main>
+				<section id="control">
+					<div class="left">
+						<input
+							type="text"
+							placeholder="검색어를 입력해주세요."
+							onkeyup="searchUpdate(this.value)"
+							class="search-field"
+						/>
+						<div class="drop-area">
+							이곳에 상품을 넣어주세요.
+						</div>
+					</div>
+					<div class="right">
+						<h2 class="title">장바구니</h2>
+						<div class="basket"></div>
+					</div>
+				</section>
+				<section id="product">
+					<h2 class="title">상품 목록</h2>
+					<div class="list">
+						<span class="is-blank">일치하는 상품이 없습니다.</span>
+					</div>
+				</section>
+			</main>
+		</article> -->
+		<article>
+			<main>
+				<input type="text" placeholder="검색어를 입력해주세요" name="search" id="search">
+				<section id="productList">
+					<h2 class="title">상품 목록</h2>
+					<div class="contents">
+						<div class="list"></div>
+						<div class="basket">
+							<div class="drop-area"></div>
+							<div class="list"></div>
+						</div>
+					</div>
+				</section>
+			</main>
+		</article>
 
-        <footer>
-            <div class="contents">
-                <span class="copyright"
-                    >Copyright (C) 2020 by MyHome Inc All Rights Reserved.</span
-                >
-            </div>
-        </footer>
-    </body>
+		<footer>
+			<div class="contents">
+				<span class="copyright"
+					>Copyright (C) 2020 by MyHome Inc All Rights Reserved.</span
+				>
+			</div>
+		</footer>
+	</body>
 </html>
