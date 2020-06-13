@@ -47,17 +47,6 @@ function stringToChoseong(string) {
     return result;
 }
 
-/**
- *
- * @param {String} string
- * @param {Number} start
- * @param {Number} end
- * @param {String} replace
- */
-function replaceBetween(string, start, end, replace) {
-    return string.substring(0, start) + replace + string.substring(end);
-}
-
 class SearchData {
     startIndex = -1;
     endIndex = -1;
