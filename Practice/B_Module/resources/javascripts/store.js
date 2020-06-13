@@ -1,146 +1,3 @@
-// function stringToCho(str) {
-// 	cho = [
-// 		"ㄱ",
-// 		"ㄲ",
-// 		"ㄴ",
-// 		"ㄷ",
-// 		"ㄸ",
-// 		"ㄹ",
-// 		"ㅁ",
-// 		"ㅂ",
-// 		"ㅃ",
-// 		"ㅅ",
-// 		"ㅆ",
-// 		"ㅇ",
-// 		"ㅈ",
-// 		"ㅉ",
-// 		"ㅊ",
-// 		"ㅋ",
-// 		"ㅌ",
-// 		"ㅍ",
-// 		"ㅎ",
-// 	];
-// 	result = "";
-// 	for (i = 0; i < str.length; i++) {
-// 		code = str.charCodeAt(i) - "가".charCodeAt();
-// 		if (code >= 0 && code <= "힣".charCodeAt() - "가".charCodeAt()) {
-// 			result +=
-// 				cho[
-// 					Math.floor(
-// 						code / ("깋".charCodeAt() - "가".charCodeAt() + 1)
-// 					)
-// 				];
-// 		} else {
-// 			result += str.charAt(i);
-// 		}
-// 	}
-// 	return result;
-// }
-
-// function wordHighlight(target, start, end) {
-// 	var search = $(target).text().slice(start, end);
-// 	$(target).html(
-// 		$(target)
-// 			.text()
-// 			.replace(search, `<span class="highlight">${search}</span>`)
-// 	);
-
-// 	return true;
-// }
-
-// function searchUpdate(value) {
-// 	var items = document.querySelectorAll("#product .list .item");
-
-// 	var is_blank = true;
-// 	items.forEach((item) => {
-// 		var name = item.querySelector(".name");
-// 		var name_cho = item.querySelector(".name-cho");
-// 		var brand = item.querySelector(".brand");
-// 		var brand_cho = item.querySelector(".brand-cho");
-
-// 		var indexs = {
-// 			name: $(name).text().toUpperCase().indexOf(value.toUpperCase()),
-// 			name_cho: $(name_cho)
-// 				.text()
-// 				.toUpperCase()
-// 				.indexOf(value.toUpperCase()),
-// 			brand: $(brand).text().toUpperCase().indexOf(value.toUpperCase()),
-// 			brand_cho: $(brand_cho)
-// 				.text()
-// 				.toUpperCase()
-// 				.indexOf(value.toUpperCase()),
-// 		};
-// 		var visible = false;
-// 		if (indexs.name > -1) {
-// 			visible = true;
-// 			wordHighlight(name, indexs.name, indexs.name + value.length);
-// 		}
-// 		if (indexs.name_cho > -1) {
-// 			visible = true;
-// 			wordHighlight(
-// 				name,
-// 				indexs.name_cho,
-// 				indexs.name_cho + value.length
-// 			);
-// 		}
-// 		if (indexs.brand > -1) {
-// 			visible = true;
-// 			wordHighlight(brand, indexs.brand, indexs.brand + value.length);
-// 		}
-// 		if (indexs.brand_cho > -1) {
-// 			visible = true;
-// 			wordHighlight(
-// 				brand,
-// 				indexs.brand_cho,
-// 				indexs.brand_cho + value.length
-// 			);
-// 		}
-
-// 		if (visible) {
-// 			item.style.display = "flex";
-// 			is_blank = false;
-// 		} else {
-// 			item.style.display = "none";
-// 		}
-// 	});
-
-// 	$("#product .is-blank").css("display", is_blank ? "flex" : "none");
-// }
-
-// /**스토어 페이지 초기화
-//  * 상품 목록 생성
-//  *   > JSON 불러오기
-//  *   > 목록 동적 생성
-//  */
-// $(function () {
-// 	// 상품 목록 생성
-// 	$.getJSON("./resources/data/store.json", function (json) {
-// 		for (let i = 0; i < json.length; i++) {
-// 			$("#product .list").append(`<div class="item">
-// 				<div
-// 					style="
-// 						background-image: url(./resources/images/product/${json[i].photo});
-// 					"
-// 					class="image"
-// 				></div>
-// 				<div class="details">
-// 					<span class="name"
-// 						>${json[i].product_name}</span
-// 					>
-// 					<span class="name-cho"
-// 						>${stringToCho(json[i].product_name)}</span
-// 					>
-// 					<span class="brand">${json[i].brand}</span>
-// 					<span class="brand-cho"
-// 						>${stringToCho(json[i].brand)}</span
-// 					>
-// 					<span class="price">${json[i].price}</span>
-// 				</div>
-// 			</div>`);
-// 		}
-// 	});
-// });
-
 // 초성 모음 및 순서
 const cho = [
     "ㄱ",
@@ -170,7 +27,7 @@ const cho = [
  * @param {String} string
  * @returns {String}
  */
-function stringToCho(string) {
+function stringToChoseong(string) {
     var result = "";
     for (let i = 0; i < string.length; i++) {
         var char = string.charAt(i);
@@ -190,81 +47,142 @@ function stringToCho(string) {
     return result;
 }
 
+/**
+ *
+ * @param {String} string
+ * @param {Number} start
+ * @param {Number} end
+ * @param {String} replace
+ */
+function replaceBetween(string, start, end, replace) {
+    return string.substring(0, start) + replace + string.substring(end);
+}
+
+class SearchData {
+    startIndex = -1;
+    endIndex = -1;
+    matchString = "";
+}
 /**문자열과 검색어가 포괄적으로 일치하는 부분을 반환합니다.
  * - 대소문자가 구분되지 않습니다.
- * - 검색어에는 공백이 필수가 아닙니다.
- * - - 단, 검색어에 공백이 있는 경우 일치해야합니다.
  * - 초성 검색이 가능합니다.
  *
  * @param {String} string
  * @param {String} keyword
  *
- * @returns {Array<String> | Number}
+ * @returns {Array<SearchData> | undefined}
  */
 function searchString(string, keyword) {
-    var index = -1;
+    if (!string.length || !keyword.length) return undefined;
+    if (keyword.length > string.length) return undefined;
 
-    for (let i = 0; i < keyword.length; i++) {
-        var char = keyword.charAt(i);
+    /**두 글자가 규칙에 의거해 일치하는지 확인합니다.
+     *
+     * @param {String} target
+     * @param {String} keyword
+     * @returns {Boolean}
+     */
+    var compareChar = function (target, keyword) {
+        target = target.toUpperCase();
+        keyword = keyword.toUpperCase();
+        if (keyword.match(/[ㄱ-ㅎ]/)) target = stringToChoseong(target);
 
-        if (index === -1) {
-            
+        if (target === keyword) return true;
+        else return false;
+    };
+
+    // 검색 시작 문자 찾기
+    /**변수 자료형
+     * @type {Array<SearchData>}
+     */
+    var detect = [];
+    for (let i = 0; i <= string.length - keyword.length; i++) {
+        if (compareChar(string.charAt(i), keyword.charAt(0))) {
+            detect.push({
+                startIndex: i,
+                endIndex: i + 1,
+                matchString: string.charAt(i),
+            });
         }
     }
-}
-function searchitemsByKeyword(keyword) {
-    $("#productList .contents .list")
-        .children()
-        .each((index, item) => {
-            var name = item.querySelector(".name").innerHTML;
-            var brand = item.querySelector(".brand").innerHTML;
-        });
-}
 
-function search(keyword, str, startIndex) {
-    var data = str.substr(startIndex); // 검색 기준 문자를 startIndex를 기준으로 자름
-    var keywordLength = keyword.length; // 검색어 글자 수
-    var dataLength = data.length; // 자른 문자의 글자 수
-    var dataCho = ""; // 검색 키워드의 초성
-    var count = 0; // 검색어의 첫글자가 검색 기준 문자 안에 몇 개 있는지 저장하는 함수
-    var start = -1; // 최초로 탐색된 인덱스
-    var index = -1; // 탐색 정보를 저장할 인덱스
-
-    // 초성 데이터 불러오기
-    for (var i = 0; i < dataLength; i += 1) {
-        dataCho += cho(data.substr(i, 1));
-    }
-
-    // 글자 검색 알고리즘 시작
-    for (var i = 0; i < keywordLength; i += 1) {
-        var char = keyword.substr(i, 1); // 한글자씩 떼서 검색
-        var regex = new RegExp(char, "g"); // 검색 기준 문자 안에 현재 탐색중인 키워드가 몇개 있는지 알아내는 정규식
-        var compare = data; // 비교 문자
-
-        if (char.match(/[ㄱ-ㅎ]/)) compare = dataCho; // 검색어가 초성이라면 비교 문자도 초성으로 변환
-
-        if (index === -1) {
-            // 최초 탐색 시
-            if (compare.indexOf(char) > -1) {
-                // 현재 찾는 문자가 존재한다면
-                count = (compare.match(char) || []).length; // 갯수 반영
-                start = index = compare.indexOf(char); // 인덱스와 시작 인덱스 수정
+    // 검색어 일치 검사
+    /**변수 자료형
+     * @type {Array<SearchData>}
+     */
+    var result = [];
+    for (let i = 0; i < detect.length; i++) {
+        var pass = true;
+        for (let j = 1; j < keyword.length; j++) {
+            var target = string.charAt(detect[i].endIndex++);
+            var compare = keyword.charAt(j);
+            if (compareChar(target, compare)) {
+                detect[i].matchString += target;
             } else {
-                break; // 없으면 반복문 종료
-            }
-        } else {
-            var compareChar = compare.substr(index + 1, 1); // 최초로 찾은 인덱스의 다음 글자를 추출
-            if (char === compareChar) {
-                // 현재 찾는 글자와 다음 글자가 일치한다면
-                index += 1; // 인덱스 증가
-            } else {
-                start = count > 0 ? search(keyword, data, index + 1) : -1; // 글자가 일치하지 않는 상태인데 이후에 탐색할 글자가 여러개 더 있는 상태라면 재귀함수 실행
+                pass = false;
                 break;
             }
         }
+
+        if (pass) result.push(detect[i]);
     }
 
-    return start + (startIndex || 0);
+    if (result.length) return result;
+    return undefined;
+}
+/**상품 목록 중 검색 결과가 일치하는 품목만 표시합니다.
+ *
+ * @param {String} keyword
+ */
+function searchitemsByKeyword(keyword) {
+    /**해당 요소에서 일치하는 문구를 강조합니다.
+     *
+     * @param {Element} element
+     * @param {String} keyword
+     *
+     * @returns {Boolean}
+     */
+    var highlight = function (element, keyword) {
+        var result = searchString($(element).text(), keyword);
+        if (result) {
+            var html = "",
+                charIndex = 0;
+            for (let i = 0; i < result.length; i++) {
+                html += $(element)
+                    .text()
+                    .substring(charIndex, result[i].startIndex);
+                charIndex = result[i].startIndex + result[i].matchString.length;
+                html += `<span class="highlight">${result[i].matchString}</span>`;
+
+                if (i === result.length - 1) {
+                    html += $(element).text().substring(result[i].endIndex);
+                }
+            }
+            $(element).html(html);
+
+            return true;
+        } else {
+            $(element).html($(element).text());
+            return false;
+        }
+    };
+
+    $("#productList .contents .list")
+        .children()
+        .each((index, item) => {
+            var name = item.querySelector(".name");
+            var brand = item.querySelector(".brand");
+
+            var highlight_name = highlight(name, keyword);
+            var highlight_brand = highlight(brand, keyword);
+            if (
+                highlight_name ||
+                highlight_brand ||
+                !keyword
+            ) {
+                $(item).css("display", "flex");
+            } else $(item).css("display", "none");
+        });
 }
 
 function init() {
