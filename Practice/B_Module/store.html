@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="./resources/stylesheets/store.css" />
 
         <script src="./resources/lib/jquery-3.4.1.min.js"></script>
+        <script src="./resources/lib/jquery-ui.js"></script>
         <script src="./resources/javascripts/store.js"></script>
     </head>
     <body onload="init()">
@@ -69,10 +70,23 @@
                 <section id="productList">
                     <h2 class="title">상품 목록</h2>
                     <div class="contents">
-                        <div class="list"></div>
+                        <div class="list">
+                            <span class="no-result"
+                                >일치하는 상품이 없습니다.</span
+                            >
+                        </div>
                         <div class="basket">
                             <div class="drop-area"></div>
                             <div class="buy-list"></div>
+                            <div class="total">
+                                <div class="all-total">
+                                    <span class="total-price-name">전체</span>
+                                    <span class="total-price">0</span>
+                                </div>
+                                <button type="submit" onclick="buyList()" class="btn buy-this">
+                                    구매하기
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </section>

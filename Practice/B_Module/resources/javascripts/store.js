@@ -149,7 +149,9 @@ function searchitemsByKeyword(keyword) {
                     result[resultIndex].matchString.length;
                 html += `<span class="highlight">${result[resultIndex].matchString}</span>`;
             }
-            html += $(element).text().substring(result[--resultIndex].endIndex);
+            html += $(element)
+                .text()
+                .substring(result[--resultIndex].endIndex);
             $(element).html(html);
 
             return true;
@@ -159,6 +161,7 @@ function searchitemsByKeyword(keyword) {
         }
     };
 
+    var hasResult = false;
     $("#productList .contents .list")
         .children()
         .each((index, item) => {
@@ -168,31 +171,166 @@ function searchitemsByKeyword(keyword) {
             var highlight_name = highlight(name, keyword);
             var highlight_brand = highlight(brand, keyword);
             if (highlight_name || highlight_brand || !keyword) {
+                hasResult = true;
                 $(item).css("display", "flex");
-            } else $(item).css("display", "none");
+            } else {
+                $(item).css("display", "none");
+            }
         });
+    if (!hasResult) $("#productList .list .no-result").css("display", "flex");
+    else $("#productList .list .no-result").css("display", "none");
 }
 
+/**장바구니에 담긴 상품의 총 가격을 갱신합니다.
+ * - 개수가 1보다 작은 상품의 개수는 자동으로 1로 바뀝니다.
+ */
+function calcTotalPrice() {
+    var total = 0;
+
+    basketList.forEach((item) => {
+        item.count = $(item.countElement).val();
+        if (item.count < 1) {
+            $(item.countElement).val(1);
+            item.count = 1;
+        }
+        item.totalPrice = item.price * item.count;
+        total += item.totalPrice;
+        $(item.totalElement).html(
+            item.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        );
+    });
+
+    $("#productList .basket .total .total-price").html(
+        total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    );
+}
+
+/**현재 장바구니에 담긴 모든 물품을 결제합니다.
+ *
+ */
+function buyList() {}
+
+// 장바구니 목록
+class BasketItemData {
+    index = 0;
+    price = 0;
+    count = 1;
+    countElement = new Element();
+    totalPrice = 0;
+    totalElement = new Element();
+}
+/**
+ * @type {Array<BasketItemData>}
+ */
+var basketList = [];
+var alertTimeout = 0;
+
 function init() {
+    // 상품 목록 불러오기 //
     $.getJSON("./resources/data/store.json", function (json) {
         for (let i = 0; i < json.length; i++) {
             $("#productList .contents > .list").append(
-                `<div class="item">
-                <div
-                    style="
-                        background-image: url(./resources/images/product/${json[i].photo});
-                    "
-                    class="image"
-                ></div>
-                <div class="details">
-                    <span class="name"
-                        >${json[i].product_name}</span
-                    >
-                    <span class="brand">${json[i].brand}</span>
-                    <span class="price">${json[i].price}</span>
+                $(`
+                <div data-index="${i}" class="item">
+                    <div
+                        style="
+                            background-image: url(./resources/images/product/${json[i].photo});
+                        "
+                        class="image"
+                    ></div>
+                    <div class="details">
+                        <span class="name"
+                            >${json[i].product_name}</span
+                        >
+                        <span class="brand">${json[i].brand}</span>
+                        <span class="price">${json[i].price}</span>
+                    </div>
                 </div>
-            </div>`
+            `).draggable({
+                    containment: "#productList .contents",
+                    revert: true,
+                    revertDuration: 250,
+                    zIndex: 128,
+                })
             );
         }
+    });
+
+    // 드롭 영역 //
+    $("#productList .drop-area").droppable({
+        accept: "#productList .list .item",
+        drop: function (event, ui) {
+            var item = $(ui.draggable),
+                index = item.attr("data-index"),
+                image = item.find(".image").css("background-image"),
+                name = item.find(".name").text(),
+                brand = item.find(".brand").text(),
+                price = item.find(".price").text();
+
+            if (
+                basketList.some((value) => {
+                    return value.index === index;
+                })
+            ) {
+                $(event.target).addClass("overlap");
+                clearTimeout(alertTimeout);
+                alertTimeout = setTimeout(function () {
+                    $(event.target).removeClass("overlap");
+                }, 3000);
+                return;
+            }
+            var buy_item = $(`
+                <div class="buy-item">
+                    <div class="info">
+                        <div
+                            style='background-image: ${image};'
+                            class="image"
+                        ></div>
+                        <div class="details">
+                            <span class="name">${name}</span>
+                            <span class="brand">${brand}</span>
+                            <span class="price">${price}</span>
+                            <button class="btn remove"></button>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <span class="count-name">수량</span>
+                        <input
+                            type="number"
+                            min="1"
+                            value="1"
+                            name="count"
+                            class="count"
+                        />
+                    </div>
+                    <div class="item-total">
+                        <span class="price-name">합계</span>
+                        <span class="price"></span>
+                    </div>
+                </div>
+            `);
+            /**
+             * @type {BasketItemData}
+             */
+            var buy_data = {
+                index: index,
+                count: 1,
+                countElement: buy_item.find(".count"),
+                price: Number(price.replace(/,/g, "")),
+                totalElement: buy_item.find(".item-total .price"),
+            };
+            buy_data.totalPrice = buy_data.price * buy_data.count;
+            buy_data.countElement.change(() => calcTotalPrice());
+            buy_item.find(".remove").click(() => {
+                basketList.splice(basketList.indexOf(buy_data), 1);
+                buy_item.remove();
+                calcTotalPrice();
+            });
+
+            basketList.push(buy_data);
+            $("#productList .basket .buy-list").append(buy_item);
+
+            calcTotalPrice();
+        },
     });
 }
