@@ -125,6 +125,7 @@ function searchString(string, keyword) {
  */
 function searchitemsByKeyword(keyword) {
     /**해당 요소에서 일치하는 문구를 강조합니다.
+     * - 일치하는 문구가 있으면 True, 없으면 False를 반환합니다.
      *
      * @param {Element} element
      * @param {String} keyword
@@ -135,18 +136,20 @@ function searchitemsByKeyword(keyword) {
         var result = searchString($(element).text(), keyword);
         if (result) {
             var html = "",
-                charIndex = 0;
-            for (let i = 0; i < result.length; i++) {
+                charIndex = 0,
+                resultIndex = 0;
+            for (; resultIndex < result.length; resultIndex++) {
+                if (result[resultIndex].startIndex < charIndex) break;
+
                 html += $(element)
                     .text()
-                    .substring(charIndex, result[i].startIndex);
-                charIndex = result[i].startIndex + result[i].matchString.length;
-                html += `<span class="highlight">${result[i].matchString}</span>`;
-
-                if (i === result.length - 1) {
-                    html += $(element).text().substring(result[i].endIndex);
-                }
+                    .substring(charIndex, result[resultIndex].startIndex);
+                charIndex =
+                    result[resultIndex].startIndex +
+                    result[resultIndex].matchString.length;
+                html += `<span class="highlight">${result[resultIndex].matchString}</span>`;
             }
+            html += $(element).text().substring(result[--resultIndex].endIndex);
             $(element).html(html);
 
             return true;
@@ -164,11 +167,7 @@ function searchitemsByKeyword(keyword) {
 
             var highlight_name = highlight(name, keyword);
             var highlight_brand = highlight(brand, keyword);
-            if (
-                highlight_name ||
-                highlight_brand ||
-                !keyword
-            ) {
+            if (highlight_name || highlight_brand || !keyword) {
                 $(item).css("display", "flex");
             } else $(item).css("display", "none");
         });
