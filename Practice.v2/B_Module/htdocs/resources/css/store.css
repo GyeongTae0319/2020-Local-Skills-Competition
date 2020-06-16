@@ -8,18 +8,20 @@
  * > 장바구니
  */
 main {
-    display: grid;
+    display: flex;
 
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 16px;
     padding-top: 96px;
-
-    grid-template-columns: 1fr 378px;
-    gap: 16px;
 }
 /*/상품 목록/*/
 /*검색창*/
+#productList {
+    margin-right: 16px;
+
+    flex-grow: 1;
+}
 #productList .search-field {
     position: relative;
 
@@ -30,7 +32,7 @@ main {
 }
 #productList .search-field .fa-search {
     position: absolute;
-    
+
     padding: 16px;
 
     color: var(--text-color-disabled);
@@ -47,9 +49,62 @@ main {
     border: 1px solid var(--grid-color);
     border-radius: 24px;
 }
+/*목록*/
+#productList .list {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+/*카드*/
+#productList .list .item {
+    cursor: move;
+
+    border: 1px solid var(--grid-color);
+    border-radius: 4px;
+
+    overflow: hidden;
+}
+#productList .item .photo {
+    padding-top: 100%;
+}
+#productList .item .details {
+    display: flex;
+
+    height: 128px;
+    padding: 16px;
+
+    border-top: 1px solid var(--grid-color);
+
+    flex-direction: column;
+
+    background-color: var(--background-color);
+}
+#productList .item .name {
+    font-size: 1.2em;
+}
+#productList .item .brand {
+    margin-top: 8px;
+    margin-bottom: auto;
+
+    color: var(--text-color-disabled);
+}
+#productList .item .price::before {
+    content: "\\";
+}
+#productList .item .highlight {
+    background-color: #fcd56a;
+}
 
 /*/장바구니/*/
 /*드롭 영역*/
+#basket {
+    position: sticky;
+    top: 32px;
+
+    width: 378px;
+    height: fit-content;
+}
 #basket #dropArea {
     position: relative;
 

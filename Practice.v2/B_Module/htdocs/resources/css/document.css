@@ -51,6 +51,8 @@
 }
 html {
     height: 100%;
+
+    overflow: hidden auto;
 }
 body {
     position: relative;
@@ -314,8 +316,6 @@ section > .more::before {
     /*/HEADER/*/
     header {
         position: relative;
-
-        overflow-x: hidden;
 
         background-color: var(--background-color);
     }

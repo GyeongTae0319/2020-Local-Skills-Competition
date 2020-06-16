@@ -58,6 +58,7 @@
                 </div>
             </div>
         </header>
+
         <article>
             <main>
                 <section id="productList">
@@ -67,6 +68,7 @@
                         <input
                             type="text"
                             placeholder="상품 이름 또는 브랜드 입력"
+                            onkeyup="updateList(this.value)"
                             name="search"
                             id="search"
                         />
@@ -80,6 +82,7 @@
                 </section>
             </main>
         </article>
+
         <footer>
             <div class="contents">
                 Copyright (C) 2020 by MyHome Inc All Rights Reserved.
