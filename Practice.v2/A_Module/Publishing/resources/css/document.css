@@ -1,0 +1,450 @@
+/**document.css
+ * > 모든 페이지에 공통으로 적용되는 스타일
+ */
+
+/**글꼴 가져오기
+ * > 나눔 고딕
+ * > - 400/700/800
+ */
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap");
+
+/**전역 변수
+ * > 문서 전체에서 사용될 지정 값
+ * > - 경계, 버튼 등의 선 색
+ * > - 글자 색
+ */
+:root {
+    /*색*/
+    --brand-color: #1c4399;
+
+    --grid-color: #cccccc;
+    --border-color: #999999;
+    --border-color-disabled: #cccccc;
+
+    --text-color: #222222;
+    --text-color-disabled: #777777;
+
+    --background-color: #ffffff;
+    --background-color-depth: #f5f5f5;
+
+    /*수치*/
+    --footer-height: 128px;
+}
+
+/**공통 설정
+ * > 모든 요소 초기화
+ * > HTML, BODY 태그 초기화
+ */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    outline: none;
+
+    background: none;
+
+    color: inherit;
+    font: inherit;
+    text-decoration: inherit;
+}
+html {
+    height: 100%;
+}
+body {
+    position: relative;
+
+    min-height: 100%;
+    padding-bottom: var(--footer-height);
+
+    color: var(--text-color);
+    font-family: "Nanum Gothic", sans-serif;
+}
+
+/**사용자 지정 공통 태그
+ * > 배경 크기 맞춤
+ * > 링크
+ * > 버튼
+ * > 별점
+ */
+/*배경 크기 맞춤*/
+.background-cover {
+    background-position: center;
+    background-size: cover;
+}
+/*링크*/
+.link {
+    color: var(--text-color-disabled);
+    text-decoration: underline;
+
+    transition: color 0.25s;
+}
+.link:hover,
+.link:active {
+    color: var(--text-color);
+}
+/*버튼*/
+.button {
+    padding: var(--button-padding, 8px);
+
+    border: 1px solid var(--border-color-disabled);
+    border-radius: var(--button-border-radius, 4px);
+
+    color: var(--text-color-disabled);
+
+    transition: border-color 0.25s, color 0.25s;
+}
+.button:hover,
+.button:active {
+    border-color: var(--border-color);
+
+    color: var(--text-color);
+}
+/*유저 아이디*/
+.user-id::before {
+    content: "@";
+}
+/*별점*/
+.star-rate {
+    display: flex;
+
+    position: relative;
+
+    align-items: center;
+}
+.star-rate .star {
+    display: flex;
+
+    width: calc(var(--star-rate-height, 32px) * 5);
+    height: var(--star-rate-height, 32px);
+    margin-right: calc(var(--star-rate-height, 32px) * 0.25);
+    flex-shrink: 0;
+}
+.star-rate .star::before,
+.star-rate .star::after {
+    content: "";
+
+    display: block;
+
+    height: 100%;
+
+    background-size: contain;
+}
+.star-rate .star::before {
+    width: calc(var(--star-rate-height, 32px) * var(--star-rate-score, 5));
+
+    background-image: url(../image/icon/star_fill.svg);
+}
+.star-rate .star::after {
+    flex-grow: 1;
+
+    background-position: right;
+    background-image: url(../image/icon/star_blank.svg);
+}
+.star-rate .score {
+    font-size: calc(var(--star-rate-height) * 0.8);
+}
+.star-rate .score::after {
+    content: "점";
+}
+
+/**문서 공통 영역 정의
+ * > 모든 페이지에서 중복되는 요소를 정의
+ * > - HEADER/FOOTER
+ * > - SECTION의 일부
+ */
+/*/HEADER/*/
+header {
+    position: absolute;
+    z-index: 64;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 64px;
+
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+header > .contents {
+    display: flex;
+
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+/*브랜드*/
+header .brand {
+    display: flex;
+
+    height: 100%;
+    margin-right: 24px;
+    padding: 12px;
+
+    align-items: center;
+}
+header .brand > .logo {
+    height: 100%;
+    margin-right: 12px;
+}
+header .brand > .title {
+    height: 1.2em;
+}
+/*유저 조작 영역*/
+header .control {
+    display: flex;
+
+    flex-grow: 1;
+}
+/*모바일 크기에서만 동작*/
+header #navButton {
+    display: none;
+}
+/*네비게이션*/
+header nav {
+    display: flex;
+
+    margin-right: auto;
+
+    color: #ffffff;
+}
+header nav .nav-link {
+    display: flex;
+
+    height: 32px;
+    margin-right: 8px;
+    padding: 0 16px;
+
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+
+    color: var(--text-color-disabled);
+    font-size: 1.1em;
+    font-weight: 700;
+
+    transition: color 0.25s;
+}
+header nav .nav-link:last-child {
+    margin: 0;
+}
+header nav .nav-link:hover,
+header nav .nav-link:active,
+header nav .nav-link.active {
+    color: var(--brand-color);
+}
+/*게정*/
+header .account {
+    display: flex;
+
+    align-items: center;
+}
+header .account .register {
+    margin-right: 12px;
+}
+
+/*/FOOTER/*/
+footer {
+    position: absolute;
+    z-index: 32;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: var(--footer-height);
+
+    background-color: var(--text-color);
+
+    color: #ffffff;
+}
+footer > .contents {
+    display: flex;
+
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 48px;
+
+    flex-direction: column;
+    justify-content: center;
+}
+
+/*/SECTION/*/
+section {
+    margin-bottom: 64px;
+}
+/*제목*/
+section > .title {
+    margin-bottom: 32px;
+
+    font-size: 2em;
+    font-weight: 700;
+    text-align: center;
+}
+/*내용*/
+section > .contents {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+/*더보기*/
+section > .more {
+    display: block;
+
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 16px;
+
+    --button-padding: 12px 24px;
+}
+section > .more::before {
+    content: "더 보기";
+}
+
+/**작은 크기에서의 스타일
+ * > 최대 너비가 855px 이하인 화면에만 적용
+ */
+@media screen and (max-width: 855px) {
+    /*스크롤바 제거*/
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    /*/HEADER/*/
+    header {
+        position: relative;
+
+        overflow-x: hidden;
+
+        background-color: var(--background-color);
+    }
+    header .contents {
+        padding: 0;
+    }
+    /*네비게이션 표시 버튼*/
+    header #navButton {
+        display: block;
+
+        width: 64px;
+        height: 64px;
+        margin-left: auto;
+        padding: 8px;
+    }
+    header #navButton .button {
+        display: flex;
+
+        height: 100%;
+
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    header #navButton:hover .button {
+        border-color: var(--border-color);
+    }
+    header #navButton .bar {
+        display: block;
+
+        position: relative;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 2px;
+
+        background-color: var(--border-color-disabled);
+
+        transform-origin: center;
+        transition: backgorund-color 0.25s;
+    }
+    header #navButton:hover .bar {
+        background-color: var(--border-color);
+    }
+    /*유저 조작 영역*/
+    header .control {
+        position: absolute;
+        top: 64px;
+        right: -70%;
+
+        width: 70%;
+        height: calc(100vh - 64px);
+
+        border: 0 solid var(--grid-color);
+        border-top-width: 1px;
+        border-left-width: 1px;
+        box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.1);
+
+        flex-direction: column;
+
+        background-color: var(--background-color);
+
+        transition: right 0.5s ease-in-out;
+    }
+    header #navButton:hover ~ .control,
+    header .control:hover {
+        right: 0;
+    }
+    /*네비게이션*/
+    header nav {
+        width: 100%;
+        margin: 0;
+
+        flex-direction: column;
+
+        overflow: hidden;
+    }
+    header nav .nav-link {
+        position: relative;
+
+        width: 100%;
+        height: fit-content;
+        margin: 0;
+        padding: 16px;
+
+        border-bottom: 1px dashed var(--grid-color);
+
+        transition: padding-left 0.25s;
+    }
+    header nav .nav-link::before {
+        content: ">";
+        opacity: 0;
+
+        display: inline;
+
+        position: absolute;
+        left: -32px;
+
+        transition: opacity 0.25s, left 0.25s;
+    }
+    header nav .nav-link:hover,
+    header nav .nav-link.active {
+        padding-left: 64px;
+    }
+    header nav .nav-link:hover::before,
+    header nav .nav-link.active::before {
+        opacity: 1;
+
+        left: 32px;
+    }
+    /*계정*/
+    header .account {
+        margin-top: auto;
+        padding: 16px;
+
+        border-top: 1px dashed var(--grid-color);
+
+        flex-flow: row-reverse;
+        justify-content: flex-end;
+    }
+    header .account .login {
+        margin-right: 16px;
+
+        --button-padding: 8px 16px;
+    }
+
+    /*/FOOTER/*/
+    footer .contents {
+        font-size: 0.8em;
+        text-align: center;
+    }
+}

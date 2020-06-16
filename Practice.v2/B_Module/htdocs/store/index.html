@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>내집꾸미기</title>
+
+        <link
+            rel="shortcut icon"
+            href="/resources/image/brand/logo.png"
+            type="image/x-icon"
+        />
+
+        <link rel="stylesheet" href="/resources/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="/resources/css/document.css" />
+        <link rel="stylesheet" href="/resources/css/store.css" />
+
+        <script src="/resources/js/jquery-3.4.1.min.js"></script>
+        <script src="/resources/js/jquery-ui.min.js"></script>
+        <script src="/resources/js/store.js"></script>
+    </head>
+    <body>
+        <header>
+            <div class="contents">
+                <a href="/" class="brand">
+                    <img
+                        src="/resources/image/brand/logo.svg"
+                        title="상징 마크"
+                        alt="상징 마크"
+                        class="logo"
+                    />
+                    <img
+                        src="/resources/image/brand/title.svg"
+                        title="내집꾸미기"
+                        alt="내집꾸미기"
+                        class="title"
+                    />
+                </a>
+                <div id="navButton">
+                    <div class="button">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                </div>
+                <div class="control">
+                    <nav>
+                        <a href="/" class="nav-link" id="home">홈</a>
+                        <a href="#" class="nav-link">온라인 집들이</a>
+                        <a href="/store/" class="nav-link active">스토어</a>
+                        <a href="#" class="nav-link">전문가</a>
+                        <a href="#" class="nav-link">시공 견적</a>
+                    </nav>
+                    <div class="account">
+                        <a href="#" class="link register">회원가입</a>
+                        <a href="#" class="button login">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <article>
+            <main>
+                <section id="productList">
+                    <h2 class="title">상품 목록</h2>
+                    <div class="search-field">
+                        <i class="fa fa-search"></i>
+                        <input
+                            type="text"
+                            placeholder="상품 이름 또는 브랜드 입력"
+                            name="search"
+                            id="search"
+                        />
+                    </div>
+                    <div class="list"></div>
+                </section>
+                <section id="basket">
+                    <h2 class="title">장바구니</h2>
+                    <div id="dropArea"></div>
+                    <div class="list"></div>
+                </section>
+            </main>
+        </article>
+        <footer>
+            <div class="contents">
+                Copyright (C) 2020 by MyHome Inc All Rights Reserved.
+            </div>
+        </footer>
+    </body>
+</html>

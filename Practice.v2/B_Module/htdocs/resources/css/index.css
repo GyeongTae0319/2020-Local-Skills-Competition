@@ -1,0 +1,297 @@
+/**index.css
+ * > 메인 페이지(홈)에 적용되는 스타일
+ */
+
+/**본문
+ * > 이미지 슬라이더
+ * > 온라인 집들이
+ * > 전문가
+ * > 시공 후기
+ */
+main {
+    padding: 0 16px;
+}
+/*/이미지 슬라이더/*/
+/*자동 슬라이드 애니메이션*/
+@keyframes auto-slide {
+    0%,
+    12.5% {
+        right: 0;
+    }
+    25%,
+    37.5% {
+        right: 100%;
+    }
+    50%,
+    62.5% {
+        right: 200%;
+    }
+    75%,
+    87.5% {
+        right: 100%;
+    }
+    100% {
+        right: 0;
+    }
+}
+#carousel {
+    width: 100%;
+    height: 640px;
+
+    overflow: hidden;
+}
+#carousel .viewport {
+    display: flex;
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    animation-name: auto-slide;
+    animation-duration: 16s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+#carousel .image {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+}
+
+/*/온라인 집들이/*/
+#housewarming > .contents {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
+    gap: 16px;
+
+    justify-content: center;
+}
+/*카드*/
+#housewarming .post {
+    display: flex;
+
+    border: 1px solid var(--grid-color);
+    border-radius: 4px;
+
+    flex-direction: column;
+
+    overflow: hidden;
+}
+/*전/후 비교 사진*/
+#housewarming .post .thumbnail {
+    position: relative;
+
+    width: 100%;
+    padding-top: 100%;
+
+    overflow: hidden;
+}
+#housewarming .post .thumbnail > * {
+    position: absolute;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+}
+#housewarming .post .thumbnail .after {
+    left: 100%;
+
+    transition: left 0.5s ease-in-out;
+}
+#housewarming .post .thumbnail:hover .after {
+    left: 0;
+}
+/*평가 및 작성자*/
+#housewarming .post .details {
+    display: flex;
+
+    padding: 8px;
+
+    border-top: 1px solid var(--grid-color);
+
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    background-color: var(--background-color-depth);
+
+    color: var(--text-color-disabled);
+}
+
+/*/전문가/*/
+#specialist > .contents {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
+    gap: 16px;
+
+    justify-content: center;
+}
+/*카드*/
+#specialist .card {
+    perspective: 1536px;
+}
+#specialist .card .flip {
+    position: relative;
+
+    padding-top: 130%;
+
+    transform-style: preserve-3d;
+    transition: transform 0.75s;
+}
+#specialist .card:hover .flip {
+    transform: rotateY(180deg);
+}
+/*앞/뒷 면*/
+#specialist .card .flip > * {
+    position: absolute;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border: 1px solid var(--grid-color);
+    border-radius: 4px;
+
+    overflow: hidden;
+    backface-visibility: hidden;
+}
+#specialist .card .flip .back {
+    display: flex;
+
+    background-color: var(--background-color-depth);
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    transform: rotateY(180deg);
+}
+/*뒷면*/
+#specialist .card .back .user-name {
+    font-size: 1.75em;
+}
+#specialist .card .back .user-id {
+    margin-bottom: 32px;
+
+    color: var(--text-color-disabled);
+}
+#specialist .card .back .more {
+    --button-padding: 12px;
+}
+#specialist .card .back .more::before {
+    content: "자세히 보기";
+}
+
+/*/시공 후기/*/
+#review > .contents {
+    display: grid;
+
+    grid-template-rows: repeat(auto-fill, 256px);
+    gap: 16px;
+}
+/*카드*/
+#review .post {
+    display: flex;
+
+    height: 256px;
+
+    border: 1px solid var(--grid-color);
+    border-radius: 4px;
+
+    overflow: hidden;
+}
+#review .post:nth-child(even) {
+    flex-flow: row-reverse;
+}
+/*사진*/
+#review .post .thumbnail {
+    height: 100%;
+}
+/*세부 정보*/
+#review .post .details {
+    display: flex;
+
+    padding: 32px;
+    flex-grow: 1;
+
+    border-left: 1px solid var(--grid-color);
+
+    flex-direction: column;
+
+    color: var(--text-color-disabled);
+}
+#review .post:nth-child(even) .details {
+    border-right: 1px solid var(--grid-color);
+    border-left: 0;
+}
+/*내용*/
+#review .post .details .contents {
+    margin-bottom: 8px;
+}
+#review .post .details .review {
+    color: var(--text-color);
+    font-size: 1.5em;
+}
+/*작성자*/
+#review .post .details .user {
+    display: inline-flex;
+}
+#review .post .details .user::before {
+    content: "-";
+
+    margin-left: 16px;
+    margin-right: 8px;
+}
+#review .post .details .info {
+    margin-top: auto;
+}
+/*시공 담당*/
+#review .post .details .specialist::before {
+    content: "담당:";
+}
+/*가격*/
+#review .post .details .price::before {
+    content: "가격: \\";
+}
+
+/**작은 크기에서의 스타일
+ * > 최대 너비가 855px 이하인 화면에만 적용
+ */
+@media screen and (max-width: 855px) {
+    /*/SECTION/*/
+    /*이미지 슬라이더*/
+    #carousel {
+        height: 320px;
+    }
+    /*온라인 집들이*/
+    #housewarming .contents {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    /*전문가*/
+    #specialist .contents {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    /*시공 후기*/
+    #review .contents {
+        grid-template-rows: auto;
+    }
+    #review .post {
+        flex-direction: column;
+        flex-flow: column !important;
+
+        height: auto;
+    }
+    #review .post .thumbnail {
+        width: 100%;
+        height: auto;
+    }
+    #review .post .details {
+        border-width: 0 !important;
+        border-top: 1px solid var(--grid-color) !important;
+    }
+    #review .post .details .info {
+        margin-top: 16px;
+    }
+}
