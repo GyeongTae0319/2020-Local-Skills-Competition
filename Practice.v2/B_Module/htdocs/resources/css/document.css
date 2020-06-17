@@ -78,13 +78,13 @@ body {
 /*링크*/
 .link {
     color: var(--text-color-disabled);
-    text-decoration: underline;
 
     transition: color 0.25s;
 }
 .link:hover,
 .link:active {
     color: var(--text-color);
+    text-decoration: underline;
 }
 /*버튼*/
 .button {
@@ -102,6 +102,35 @@ body {
     border-color: var(--border-color);
 
     color: var(--text-color);
+}
+/*라벨*/
+.label {
+    display: grid;
+
+    border: 1px solid var(--grid-color);
+    border-radius: 4px;
+
+    grid-template-columns: 64px 1fr;
+
+    overflow: hidden;
+}
+.label > .name {
+    display: flex;
+
+    border-right: 1px dashed var(--grid-color);
+
+    flex-direction: column;
+    justify-content: center;
+
+    background-color: var(--background-color-depth);
+
+    color: var(--text-color-disabled);
+    text-align: center;
+}
+.label > .value {
+    padding: 0 16px;
+
+    align-self: center;
 }
 /*유저 아이디*/
 .user-id::before {

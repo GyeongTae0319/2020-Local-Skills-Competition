@@ -99,11 +99,15 @@ main {
 /*/장바구니/*/
 /*드롭 영역*/
 #basket {
+    display: flex;
+
     position: sticky;
     top: 32px;
 
     width: 378px;
-    height: fit-content;
+    height: calc(100vh - 224px);
+
+    flex-direction: column;
 }
 #basket #dropArea {
     position: relative;
@@ -136,7 +140,95 @@ main {
 }
 /*장바구니 목록*/
 #basket .list {
-    display: grid;
+    flex-grow: 1;
+    margin-top: 16px;
+    padding-bottom: 32px;
+
+    border: 1px solid var(--grid-color);
+    border-radius: 4px;
+
+    overflow: hidden scroll;
+}
+/*카드*/
+#basket .list .item {
+    border-bottom: 1px solid var(--grid-color);
+}
+#basket .item .control {
+    display: flex;
+
+    flex-direction: column;
+}
+/*상품 정보*/
+#basket .item .info {
+    display: flex;
+}
+#basket .item .info .photo {
+    width: 96px;
+    height: 96px;
+}
+#basket .item .info .details {
+    display: flex;
+
+    padding: 16px;
+
+    flex-direction: column;
+
+    border-left: 1px dashed var(--grid-color);
+}
+#basket .item .details .brand {
+    margin-bottom: auto;
+
+    color: var(--text-color-disabled);
+    font-size: 0.8em;
+}
+#basket .item .details .price::before {
+    content: "\\";
+}
+/*상품 조작*/
+#basket .item .control .label {
+    height: 48px;
+
+    border: none;
+    border-top: 1px dashed var(--grid-color);
+}
+#basket .item .count .value {
+    display: flex;
+}
+#basket .item .count .product-count {
+    flex-grow: 1;
+}
+#basket .item .count .remove {
+    width: 32px;
+    height: 32px;
+    margin-left: 16px;
+    padding: 0;
+}
+#basket .item .count-price .value {
+    text-align: right;
+}
+#basket .item .count-price .value::before {
+    content: "\\";
+}
+/*장바구니 조작*/
+#basket > .control {
+    display: flex;
+
+    margin-top: 16px;
+}
+#basket .control .total-price {
+    flex-grow: 1;
+}
+#basket .control .total-price .value {
+    text-align: right;
+}
+#basket .control .total-price .value::before {
+    content: "\\";
+}
+#basket .control .buy {
+    margin-left: 16px;
+    flex-shrink: 0;
+
+    --button-padding: 12px 16px;
 }
 
 /**작은 크기에서의 스타일

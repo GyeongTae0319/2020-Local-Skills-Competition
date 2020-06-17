@@ -11,6 +11,8 @@
             type="image/x-icon"
         />
 
+        <link rel="stylesheet" href="/resources/css/jquery-ui.min.css">
+        <link rel="stylesheet" href="/resources/css/xx">
         <link rel="stylesheet" href="/resources/css/font-awesome.min.css" />
         <link rel="stylesheet" href="/resources/css/document.css" />
         <link rel="stylesheet" href="/resources/css/store.css" />
@@ -69,7 +71,6 @@
                             type="text"
                             placeholder="상품 이름 또는 브랜드 입력"
                             onkeyup="updateList(this.value)"
-                            name="search"
                             id="search"
                         />
                     </div>
@@ -79,9 +80,20 @@
                     <h2 class="title">장바구니</h2>
                     <div id="dropArea"></div>
                     <div class="list"></div>
+                    <div class="control">
+                        <div class="label total-price">
+                            <span class="name">총합</span>
+                            <span class="value">0</span>
+                        </div>
+                        <button class="button buy">
+                            구매하기
+                        </button>
+                    </div>
                 </section>
             </main>
         </article>
+
+        <div class="dialog" id="buyInfo"></div>
 
         <footer>
             <div class="contents">
