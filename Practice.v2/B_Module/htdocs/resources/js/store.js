@@ -226,7 +226,7 @@ function updateTotalPrice() {
     $("#basket .total-price .value").html(total.format());
 }
 
-$(function () {
+$(document).ready(function () {
     // 상품 목록 불러오기
     $.getJSON(
         "/resources/json/store.json",
@@ -347,9 +347,16 @@ $(function () {
 
     // 구매 버튼
     $("#basket .buy").click(() => {
-        console.log("click");
+        if (!basketList.length) {
+            alert("구매할 상품을 골라주세요.");
+            return;
+        }
+
         $("#buyInfo").dialog({
             open: true,
+            resizable: false,
+            title: "구매 정보",
+            position: { my: "center", at: "center", of: window },
             buttons: [
                 {
                     text: "구매",

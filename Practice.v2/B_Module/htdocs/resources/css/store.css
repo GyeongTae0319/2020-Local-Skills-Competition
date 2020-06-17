@@ -231,6 +231,35 @@ main {
     --button-padding: 12px 16px;
 }
 
+/*/다이얼로그/*/
+.ui-dialog {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+.dialog {
+    display: flex;
+
+    margin-top: 16px;
+
+    flex-direction: column;
+}
+.dialog label {
+    display: flex;
+
+    margin-bottom: 16px;
+
+    flex-direction: column;
+}
+.dialog label input {
+    display: block;
+
+    height: 32px;
+    margin-top: 8px;
+    padding: 0 16px;
+
+    border: 1px solid var(--grid-color);
+    border-radius: 16px;
+}
+
 /**작은 크기에서의 스타일
  * > 최대 너비가 855px 이하인 화면에만 적용
  */

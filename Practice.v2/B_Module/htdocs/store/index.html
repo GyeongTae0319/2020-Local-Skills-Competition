@@ -11,8 +11,12 @@
             type="image/x-icon"
         />
 
-        <link rel="stylesheet" href="/resources/css/jquery-ui.min.css">
-        <link rel="stylesheet" href="/resources/css/xx">
+        <link rel="stylesheet" href="/resources/css/jquery-ui.min.css" />
+        <link
+            rel="stylesheet"
+            href="/resources/css/jquery-ui.structure.min.css"
+        />
+        <link rel="stylesheet" href="/resources/css/jquery-ui.theme.min.css" />
         <link rel="stylesheet" href="/resources/css/font-awesome.min.css" />
         <link rel="stylesheet" href="/resources/css/document.css" />
         <link rel="stylesheet" href="/resources/css/store.css" />
@@ -93,7 +97,19 @@
             </main>
         </article>
 
-        <div class="dialog" id="buyInfo"></div>
+        <div style="display: none;" class="dialog" id="buyInfo">
+            <label
+                ><span class="name">이름</span>
+                <input type="text" name="user-name" id="userName"
+            /></label>
+            <label
+                ><span class="name">주소</span>
+                <input type="text" name="user-address" id="userAddress"
+            /></label>
+        </div>
+        <div style="display: none;" class="dialog" id="credit">
+            <canvas id="creditImage"></canvas>
+        </div>
 
         <footer>
             <div class="contents">

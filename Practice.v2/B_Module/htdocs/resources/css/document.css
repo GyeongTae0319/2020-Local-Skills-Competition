@@ -61,7 +61,7 @@ body {
     padding-bottom: var(--footer-height);
 
     color: var(--text-color);
-    font-family: "Nanum Gothic", sans-serif;
+    font-family: "Nanum Gothic", sans-serif !important;
 }
 
 /**사용자 지정 공통 태그
@@ -178,6 +178,10 @@ body {
 }
 .star-rate .score::after {
     content: "점";
+}
+/*다이얼로그*/
+.ui-dialog {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
 
 /**문서 공통 영역 정의
