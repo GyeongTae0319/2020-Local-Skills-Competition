@@ -1,0 +1,342 @@
+/* 메인 페이지 설정 */
+/*
+ - 메인 페이지에 적용될 스타일 정의
+     - 이미지 슬라이드
+     - 온라인 집들이
+     - 전문가
+     - 시공 후기
+*/
+
+/* 전역 변수 */
+:root {
+    --carousel-height: 640px;
+}
+
+/* 이미지 슬라이드 */
+#carousel {
+    height: var(--carousel-height);
+
+    overflow: hidden;
+}
+#carousel .viewport {
+    position: relative;
+
+    display: flex;
+
+    width: 100%;
+    height: 100%;
+
+    animation-name: auto-slide;
+    animation-duration: 16s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+#carousel .viewport .slide {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+
+    object-fit: cover;
+}
+/* 자동 슬라이드 애니메이션 */
+@keyframes auto-slide {
+    0%, 12.5% {
+        right: 0;
+    }
+    25%, 37.5% {
+        right: 100%;
+    }
+    50%, 62.5% {
+        right: 200%;
+    }
+    75%, 87.5% {
+        right: 100%;
+    }
+    100% {
+        right: 0;
+    }
+}
+
+/* 온라인 집들이 */
+#housewarming > .contents {
+    display: grid;
+
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+/* 집들이 글 */
+#housewarming > .contents .item {
+    border-radius: 16px;
+
+    border: 1px solid var(--grid-color);
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    background-color: var(--background-color-depth);
+}
+/* 시공 전/후 이미지 */
+#housewarming .item .thumbnail {
+    display: flex;
+
+    position: relative;
+
+    border-bottom: 1px solid var(--grid-color);
+    border-radius: 0 0 16px 16px;
+    overflow: hidden;
+
+    height: 256px;
+}
+#housewarming .item .thumbnail img {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+
+    object-fit: cover;
+}
+#housewarming .item .thumbnail .after {
+    position: absolute;
+    left: 100%;
+
+    transition: left 0.5s;
+}
+#housewarming .item .thumbnail:hover .after {
+    left: 0;
+}
+/* 평점 및 사용자 아이디 */
+#housewarming .item .details {
+    display: flex;
+
+    position: relative;
+
+    padding: 8px 16px;
+
+    justify-content: space-between;
+    align-items: center;
+
+    color: var(--text-color-disable);
+}
+#housewarming .item .details .user-id {
+    display: flex;
+
+    align-items: center;
+}
+
+/* 전문가 */
+#specialist > .contents {
+    display: grid;
+
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+/* 전문가 카드 */
+#specialist > .contents .item {
+    position: relative;
+
+    width: 100%;
+    padding-top: 100%;
+
+    perspective: 1024px;
+}
+#specialist .item .flip {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+}
+#specialist .item:hover .flip {
+    transform: rotateY(180deg);
+}
+#specialist .flip > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border: 1px solid var(--grid-color);
+    border-radius: 16px;
+
+    overflow: hidden;
+    backface-visibility: hidden;
+}
+/* 앞면 */
+#specialist .flip .front img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+/* 뒷면 */
+#specialist .flip .back {
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+
+    transform: rotateY(180deg);
+}
+#specialist .flip .back * {
+    width: fit-content;
+    margin: 0 auto;
+}
+#specialist .flip .back .user-name {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+#specialist .flip .back .user-id {
+    color: var(--text-color-disable);
+}
+#specialist .flip .back .more {
+    margin-top: 32px;
+}
+
+/* 시공 후기 */
+#review > .contents {
+    display: grid;
+
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+
+    grid-template-rows: repeat(auto-fill, 256px);
+    gap: 16px;
+}
+/* 후기 */
+#review > .contents .item {
+    display: flex;
+
+    height: 256px;
+
+    border: 1px solid var(--grid-color);
+    border-radius: 16px;
+
+    overflow: hidden;
+}
+#review .item img {
+    width: 256px;
+    height: 100%;
+    flex-shrink: 0;
+
+    border-right: 1px solid var(--grid-color);
+    border-radius: 0 16px 16px 0;
+
+    object-fit: cover;
+}
+#review .item .details {
+    display: flex;
+
+    padding: 32px;
+    flex-grow: 1;
+
+    flex-direction: column;
+    justify-content: space-between;
+}
+/* 내용 */
+#review .item .details .review .content {
+    font-size: 1.5em;
+}
+#review .item .details .review .author {
+    margin-bottom: 16px;
+
+    color: var(--text-color-disable);
+}
+/* 견적 */
+#review .item .details .estimate .specialist {
+    color: var(--text-color-disable);
+}
+#review .item .details .estimate .specialist::after {
+    content: "의 작품";
+}
+#review .item .details .estimate .pay {
+    font-size: 1.5em;
+}
+#review .item .details .estimate .pay::before {
+    content: "\\";
+
+    font-family: sans-serif;
+}
+
+/* 작은 화면의 스타일 */
+/* 
+ - 너비가 840px 이하인 장치에 적용
+*/
+@media screen and (max-width: 840px) {
+    /* 전역 변수 */
+    :root {
+        --carousel-height: 320px;
+    }
+
+    /* 온라인 집들이 */
+    #housewarming > .contents {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* 전문가 */
+    #specialist > .contents {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* 시공 후기 */
+    #review > .contents {
+        display: grid;
+
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 16px;
+
+        grid-template-rows: auto;
+        gap: 16px;
+    }
+    /* 후기 */
+    #review > .contents .item {
+        display: flex;
+    
+        height: auto;
+    
+        border: 1px solid var(--grid-color);
+        border-radius: 16px;
+
+        flex-direction: column;
+
+        overflow: hidden;
+    }
+    #review .item img {
+        width: 100%;
+        height: 256px;
+        flex-shrink: 0;
+    
+        border-right: none;
+        border-bottom: 1px solid var(--grid-color);
+        border-radius: 0 0 16px 16px;
+    
+        object-fit: cover;
+    }
+    #review .item .details {
+        display: flex;
+    
+        padding: 32px;
+        flex-grow: 1;
+    
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    /* 견적 */
+    #review .item .details .estimate {
+        margin-top: 16px;
+    }
+}

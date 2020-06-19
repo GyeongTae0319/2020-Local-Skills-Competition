@@ -1,0 +1,441 @@
+/* 전체 문서 설정 */
+/*
+ - 모든 페이지에 공통으로 적용될 스타일 정의
+     - Header, Footer
+*/
+
+/* 전역 변수 */
+:root {
+    /* 치수 */
+    --header-height: 64px;
+    --footer-height: 128px;
+
+    /* 색 */
+    --brand-color: #3399ff;
+    --text-color: #222222;
+    --text-color-disable: #777777;
+    --border-color: #555555;
+    --border-color-disable: #cccccc;
+    --grid-color: #cccccc;
+    --background-color: #ffffff;
+    --background-color-depth: #f5f5f5;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* 모든 사전 스타일 초기화 */
+* {
+    box-sizing: border-box;
+
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    background: none;
+
+    color: inherit;
+    font: inherit;
+    text-decoration: inherit;
+}
+/* 최상위 요소 설정 */
+html {
+    height: 100%;
+
+    color: var(--text-color);
+    /* 1rem = 15px */
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body {
+    position: relative;
+
+    min-height: 100%;
+
+    overflow-x: hidden;
+}
+
+/* Header */
+header {
+    position: absolute;
+    z-index: 512;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: var(--header-height);
+
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+header .contents {
+    display: flex;
+
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+}
+header .contents #navVisible {
+    display: none;
+}
+/* 브랜드 로고 */
+header .contents .brand {
+    height: 100%;
+    margin-right: 16px;
+    padding: 8px;
+}
+header .brand img {
+    height: 100%;
+    object-fit: cover;
+}
+/* 유저 조작 영역 */
+header .contents .control {
+    display: flex;
+
+    height: 100%;
+    flex-grow: 1;
+}
+/* 네비게이션 */
+header .control nav {
+    display: flex;
+
+    height: 100%;
+    margin-right: auto;
+}
+header nav .nav-item {
+    display: flex;
+
+    padding: 0 12px;
+
+    align-items: center;
+
+    color: var(--text-color-disable);
+    font-size: 1.3em;
+    font-weight: 600;
+
+    transition: color 0.25s;
+}
+header nav .nav-item.active,
+header nav .nav-item:hover {
+    color: var(--brand-color);
+}
+/* 계정 */
+header .control .account {
+    display: flex;
+
+    padding-right: 8px;
+
+    align-items: center;
+
+    color: var(--text-color-disable);
+}
+header .account #register {
+    height: fit-content;
+    margin-right: 8px;
+}
+header .account #login {
+    height: fit-content;
+}
+
+/* Footer */
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: var(--footer-height);
+
+    background-color: var(--text-color);
+
+    color: #ffffff;
+}
+footer .contents {
+    display: flex;
+
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 64px;
+
+    align-items: center;
+}
+
+/* 본문 */
+article {
+    padding-bottom: var(--footer-height);
+}
+section {
+    margin-bottom: 64px;
+}
+section > .header {
+    display: flex;
+
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 32px;
+    padding: 0 16px;
+
+    justify-content: space-between;
+}
+section > .header .title {
+    font-size: 2em;
+    font-weight: 600;
+}
+section > .header .more {
+    display: flex;
+
+    flex-direction: column;
+    align-self: flex-end;
+
+    color: var(--brand-color);
+    font-size: 1.3em;
+    font-weight: 600;
+}
+section > .header .more::before {
+    content: "더 보기";
+}
+section > .header .more::after {
+    content: "";
+
+    display: block;
+
+    width: 0;
+
+    border-top: 2px solid var(--brand-color);
+
+    transition: width 0.25s;
+}
+section > .header .more:hover::after {
+    width: 100%;
+}
+
+/* 사용자 정의 속성 */
+/*
+ - 여러 문서에서 사용하는 통일된 스타일 정의
+     - 사용자 아이디
+     - 별점 아이콘
+*/
+/* 버튼 */
+.button {
+    display: block;
+
+    padding: 8px 16px;
+
+    border: 1px solid var(--border-color-disable);
+    border-radius: 4px;
+
+    color: var(--text-color-disable);
+
+    transition: color 0.25s, border-color 0.25s;
+}
+.button:hover {
+    border-color: var(--border-color);
+
+    color: var(--text-color);
+}
+/* 링크 */
+.link {
+    color: var(--text-color-disable);
+
+    transition: color 0.25s;
+}
+.link:hover {
+    color: var(--text-color);
+    text-decoration: underline;
+}
+
+/* 사용자 아이디 */
+.user-id::before {
+    content: "@";
+}
+
+/* 별점 */
+.star-rate {
+    counter-reset: score var(--star-rate-score, 0);
+
+    display: flex;
+
+    height: var(--star-rate-height, 24px);
+
+    align-items: center;
+}
+.star-rate .stars {
+    display: flex;
+
+    height: 100%;
+    width: calc(var(--star-rate-height, 24px) * 5);
+    margin-right: 8px;
+}
+.star-rate .stars::before {
+    content: "";
+
+    display: block;
+
+    width: calc(var(--star-rate-height, 24px) * var(--star-rate-score, 0));
+    height: 100%;
+    flex-shrink: 0;
+
+    background-image: url(../images/icons/Star_Fill.svg);
+    background-position: left;
+    background-size: contain;
+}
+.star-rate .stars::after {
+    content: "";
+
+    display: block;
+
+    height: 100%;
+    flex-grow: 1;
+
+    background-image: url(../images/icons/Star_Blank.svg);
+    background-position: right;
+    background-size: contain;
+}
+.star-rate::after {
+    content: counter(score);
+
+    font-size: calc(var(--star-rate-height, 24px));
+}
+
+/* 작은 화면의 스타일 */
+/* 
+ - 너비가 840px 이하인 장치에 적용
+*/
+@media screen and (max-width: 840px) {
+    :root {
+        --header-height: 48px;
+        --footer-height: 96px;
+    }
+
+    /* 스크롤 바 숨기기 */
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Header */
+    header {
+        position: fixed;
+        top: 0;
+
+        background-color: var(--background-color);
+    }
+    header .contents {
+        position: relative;
+    }
+    /* 네비게이션 버튼 */
+    header .contents #navVisible {
+        display: block;
+
+        margin-left: auto;
+        padding: 8px;
+    }
+    header #navVisible .button {
+        display: flex;
+
+        width: 32px;
+        height: 100%;
+        padding: 0;
+
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    header #navVisible .button .bar {
+        display: block;
+
+        width: 75%;
+        height: 2px;
+        margin: 2px 0;
+
+        background-color: var(--border-color-disable);
+
+        transition: background-color 0.25s;
+    }
+    header #navVisible:hover .button {
+        border-color: var(--border-color);
+    }
+    header #navVisible:hover .button .bar {
+        background-color: var(--border-color);
+    }
+    /* 네이게이션 및 계정 */
+    header .contents .control {
+        position: absolute;
+        top: var(--header-height);
+        right: -75%;
+
+        width: 75%;
+        height: calc(100vh - var(--header-height));
+
+        border-top: 1px solid var(--grid-color);
+
+        flex-direction: column;
+
+        background-color: var(--background-color);
+        box-shadow: -4px 4px 8px var(--shadow-color);
+
+        transition: right 0.5s;
+    }
+    header .contents .control:hover,
+    header .contents #navVisible:hover ~ .control {
+        right: 0;
+    }
+
+    /* 네비게이션 */
+    header .control nav {
+        width: 100%;
+        height: auto;
+        margin-bottom: auto;
+
+        flex-direction: column;
+
+        overflow: hidden;
+    }
+    header nav .nav-item {
+        position: relative;
+
+        padding: 16px;
+
+        border-bottom: 1px dashed var(--grid-color);
+
+        transition: padding-left 0.25s;
+    }
+    header nav .nav-item.active,
+    header nav .nav-item:hover {
+        padding-left: 48px;
+    }
+    header nav .nav-item::before {
+        content: ">";
+
+        position: absolute;
+        left: -32px;
+
+        opacity: 0;
+
+        transition: opacity 0.25s, left 0.25s;
+    }
+    header nav .nav-item.active::before,
+    header nav .nav-item:hover::before {
+        left: 16px;
+
+        opacity: 1;
+    }
+    /* 계정 */
+    header .control .account {
+        padding: 16px;
+
+        justify-content: flex-end;
+    }
+
+    /* 본문 */
+    article {
+        padding-top: var(--header-height);
+    }
+
+    /* Footer */
+    footer .contents {
+        padding: 0 16px;
+
+        justify-content: center;
+
+        font-size: 0.8em;
+    }
+}
