@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내집꾸미기</title>
+
+    <!-- 사이트 아이콘 -->
+    <link rel="shortcut icon" href="/assets/images/brand/Logo.svg" type="image/x-icon">
+
+    <!-- CSS 가져오기 -->
+    <link rel="stylesheet" href="/assets/stylesheets/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/jquery/jquery-ui.min.css">
+    <link rel="stylesheet" href="/assets/jquery/jquery-ui.structure.min.css">
+    <link rel="stylesheet" href="/assets/jquery/jquery-ui.theme.min.css">
+    <link rel="stylesheet" href="/assets/stylesheets/document.css">
+    <link rel="stylesheet" href="/assets/stylesheets/store.css">
+
+    <!-- JS 가져오기 -->
+    <script src="/assets/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/assets/jquery/jquery-ui.min.js"></script>
+    <script src="/assets/javascripts/document.js"></script>
+    <script src="/assets/javascripts/store.js"></script>
+</head>
+<body>
+    <!-- 헤더 영역 -->
+    <header>
+        <div class="contents">
+            <!-- 브랜드 로고 -->
+            <a href="/" id="brand">
+                <img src="/assets/images/brand/Brand.svg" title="내집꾸미기" alt="내집꾸미기">
+            </a>
+            <!-- 작은 화면에서 동작하는 햄버거 버튼 -->
+            <div id="showHeaderMenu">
+                <div class="button">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+            <!-- 헤더 링크 및 계정 -->
+            <div class="menu">
+                <!-- 네비게이션 -->
+                <nav>
+                    <a href="/" class="nav-link">홈</a>
+                    <a href="#" class="nav-link">온라인 집들이</a>
+                    <a href="/store" class="nav-link active">스토어</a>
+                    <a href="#" class="nav-link">전문가</a>
+                    <a href="#" class="nav-link">시공 견적</a>
+                </nav>
+                <!-- 계정 -->
+                <div class="account">
+                    <button class="link" id="register">회원가입</button>
+                    <hr>
+                    <button class="link" id="login">로그인</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <article>
+        <main>
+            <section id="productList">
+                <h2 class="title">상품 목록</h2>
+                <div class="grid-auto list"></div>
+            </section>
+            <section id="basket">
+                <h2 class="title">장바구니</h2>
+                <div class="contents">
+                    <div id="dropArea"></div>
+                    <div class="list"></div>
+                    <div class="control">
+                        <div id="total">
+                            <span class="title">전체</span>
+                            <span class="price">0</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </article>
+
+    <!-- 푸터 -->
+    <footer>
+        <div class="contents">Copyright (C) 2020 by MyHome Inc All Rights Reserved.</div>
+    </footer>
+</body>
+</html>
