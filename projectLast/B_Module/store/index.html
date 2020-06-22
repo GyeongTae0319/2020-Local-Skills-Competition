@@ -70,15 +70,32 @@
                     <div id="dropArea"></div>
                     <div class="list"></div>
                     <div class="control">
-                        <div id="total">
+                        <div class="label-title" id="total">
                             <span class="title">전체</span>
-                            <span class="price">0</span>
+                            <span class="value price">0</span>
                         </div>
+                        <button class="button" id="buy">구매</button>
                     </div>
                 </div>
             </section>
         </main>
     </article>
+
+    <div style="display: none;" class="dialog" id="buyInfo">
+        <label class="input-title">
+            <span class="title">이름</span>
+            <input type="text" class="input" name="user-name" id="userName">
+        </label>
+        <label class="input-title">
+            <span class="title">주소</span>
+            <input type="text" class="input" name="user-address" id="userAddress">
+        </label>
+        <button class="button" id="doneInfo">구매</button>
+    </div>
+
+    <div style="display: none;" class="dialog" id="buyResult">
+        <canvas id="buyImg"></canvas>
+    </div>
 
     <!-- 푸터 -->
     <footer>

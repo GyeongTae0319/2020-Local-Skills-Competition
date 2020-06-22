@@ -30,20 +30,19 @@ main {
 
     overflow: hidden;
 }
-#productList .item .details {
+#productList .item .bottom {
     background-color: var(--background-color);
-}
-#productList .item .details .product-name {
-    font-size: 1.2em;
-}
-#productList .item .details .product-brand {
-    color: var(--text-color-disable);
 }
 
 /* 장바구니 */
 #basket {
+    position: sticky;
+    top: 64px;
+
     width: 320px;
+    height: fit-content;
 }
+/* 드롭 영역 */
 #basket #dropArea {
     position: relative;
 
@@ -69,4 +68,57 @@ main {
     align-items: center;
 
     color: var(--text-color-disable);
+}
+/* 목록 */
+#basket .list {
+    width: 100%;
+    height: 320px;
+    margin-top: 16px;
+    padding-bottom: 32px;
+
+    border: 1px solid var(--grid-color);
+    border-radius: 16px 0 0 16px;
+
+    overflow: hidden auto;
+
+    --card-top-height: 96px;
+    --card-bottom-padding: 0;
+    --card-left-width: 96px;
+    --card-left-height: 96px;
+    --card-right-padding: 0 16px;
+}
+#basket .list .item {
+    border-bottom: 1px solid var(--grid-color);
+}
+#basket .list .right {
+    justify-content: center;
+}
+#basket .list .label-title {
+    border-top: 1px dashed var(--grid-color);
+}
+#basket .list .close {
+    width: 32px;
+    height: 32px;
+
+    margin: 8px 8px 8px 0;
+    padding: 0;
+}
+/* 전체 */
+#basket .control {
+    display: flex;
+
+    margin-top: 16px;
+}
+#basket #total {
+    margin-right: 16px;
+
+    border: 1px solid var(--grid-color);
+    border-radius: 16px;
+
+    overflow: hidden;
+}
+#basket #buy {
+    flex-shrink: 0;
+
+    border-radius: 16px;
 }
