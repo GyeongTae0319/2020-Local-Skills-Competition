@@ -1,5 +1,4 @@
 // 스토어 페이지 스크립트
-// - 상품 목록 불러오기
 
 // 스토어 데이터 형식
 class ProductJSON {
@@ -20,10 +19,22 @@ class ProductData {
 // 장바구니 상품 정보 형식
 class BasketData {
     id = 0;
+    photo = "";
     name = "";
     price = 0;
     count = 1;
 }
+
+/**전체 상품 목록 저장
+ * @type {Array<ProductData>}
+ */
+var productList = [];
+var productNames = [];
+/**장바구니 상품 목록 저장
+ * @type {Array<BasketData>}
+ */
+var basketList = [];
+var totalPrice = 0;
 
 /**전체 상품 목록 저장
  * @type {Array<ProductData>}
@@ -35,202 +46,259 @@ var productList = [];
 var basketList = [];
 var totalPrice = 0;
 
-// 문서 준비 후
-$(document).ready(() => {
-    $.getJSON("/assets/json/store.json",
-        /**store.json 불러오기 형식
-         * 
-         * @param {Array<ProductJSON>} data 
-         */
-        function (data) {
-            data.forEach((product) => {
-                productList.push({
-                    id: product.id,
-                    photo: product.photo,
-                    name: product.product_name,
-                    brand: product.brand,
-                    price: product.price.toNumber(),
-                });
+function updateTotal() {
+    totalPrice = 0;
+    for (let i = 0; i < basketList.length; i++) {
+        totalPrice += basketList[i].price * basketList[i].count;
+    }
 
-                var item = $(`
-                    <div data-index=${product.id} class="card-ver item">
-                        <img src="/assets/images/products/${product.photo}" title="${product.product_name}" alt="${product.product_name}" class="top">
-                        <div class="bottom product">
-                            <span class="name">${product.product_name}</span>
-                            <span class="brand">${product.brand}</span>
-                            <span class="price">${product.price}</span>
-                        </div>
+    $("#basket .control .price").html(totalPrice.format());
+}
+
+$("article").ready(e => {
+    $.getJSON("/assets/json/store.json", data => {
+        data.forEach((product) => {
+            productList.push({
+                id: product.id,
+                photo: product.photo,
+                name: product.product_name,
+                brand: product.brand,
+                price: product.price.toNumber(),
+            });
+            productNames.push(product.product_name);
+
+            var item = $(`
+                <div data-index=${product.id} class="card-ver item">
+                    <img src="/assets/images/products/${product.photo}" title="${product.product_name}" alt="${product.product_name}" class="top">
+                    <div class="bottom product">
+                        <span class="name">${product.product_name}</span>
+                        <span class="brand">${product.brand}</span>
+                        <span class="price">${product.price}</span>
                     </div>
-                `);
-                item.draggable({
-                    containment: "main",
-                    revert: true,
-                    revertDuration: 250,
-                    zIndex: 512,
-                });
+                </div>
+            `);
+            item.draggable({
+                containment: "main",
+                revert: true,
+                opacity: 0.5,
+                revertDuration: 250,
+                zIndex: 512,
+            });
 
-                $("#productList .list").append(item);
-            })
-        }
-    ).done(() => {
-        $("#dropArea").droppable({
-            accept: "#productList .item",
-            drop: function(event, ui) {
-                var productId = ui.draggable.attr("data-index");
-                if (basketList.some((product) => {
-                    return product.id == productId;
-                })) {
-                    alert("이미 장바구니에 담긴 상품입니다.");
-                    return;
-                }
-                /**
-                 * @type {ProductData}
-                 */
-                var data = productList[productId.toNumber() - 1];
-                basketList.push({
-                    id: data.id,
-                    name: data.name,
-                    price: data.price,
-                    count: 1,
-                });
-
-                var item = $(`
-                    <div class="card-ver item">
-                        <div class="top card-hor">
-                            <img src="/assets/images/products/${data.photo}" title="${data.name}" alt="${data.name}" class="left">
-                            <div class="right product">
-                                <span class="name">${data.name}</span>
-                                <span class="brand">${data.brand}</span>
-                                <span class="price">${data.price.format()}</span>
-                            </div>
-                        </div>
-                        <div class="bottom">
-                            <label class="label-title">
-                                <span class="title">수량</span>
-                                <input value=1 min=1 type="number" class="value count">
-                                <button class="button close"><i class="fa fa-close"></i></button>
-                            </label>
-                            <div class="label-title">
-                                <span class="title">합계</span>
-                                <span class="value price">${data.price.format()}</span>
-                            </div>
-                        </div>
-                    </div>
-                `);
-                item.find(".button.close").click(() => {
-                    basketList.splice(basketList.findIndex((value) => {
-                        return value.id == data.id;
-                    }), 1);
-                    item.remove();
-                });
-                item.find(".count").change((event) => {
-                    var count = $(event.target).val().toNumber();
-                    var index = basketList.findIndex((value) => {
-                        return value.id == data.id;
-                    });
-
-                    if (count < 1) {
-                        $(event.target).val(1);
-                        count = 1;
-                    }
-                    basketList[index].count = count;
-
-                    item.find(".bottom .price").html((basketList[index].price * basketList[index].count).format());
-                    updateTotal();
-                })
-
-                $("#basket .list").append(item);
-                updateTotal();
-            },
-        });
+            $("#productList .list").append(item);
+        })
     });
 
-    $("#buy").click((event) => {
+    $("#search").autocomplete({
+        source: productNames,
+        focus: (e) => {
+            return false;
+        },
+        select: (e, ui) => {
+            $("#search").val(ui.item.value);
+        }
+    });
+    $("#search").keyup(e => {
+        let keyword = $("#search").val();
+
+        let noItem = true;
+        $("#productList .list").children().each((index, item) => {
+            let name = $(item).find(".name");
+            let brand = $(item).find(".brand");
+
+            let keys = keyword.split("|");
+            let isVisible = false;
+            for (let k = 0; k < keys.length; k++) {
+                let nr = name.text().searchKeyword(keys[k]);
+                let br = brand.text().searchKeyword(keys[k]);
+
+                if (nr != null) {
+                    isVisible = true;
+                    name.html(`${nr.str.slice(0, nr.start)}<span class="highlight">${nr.match}</span>${nr.str.slice(nr.end)}`)
+                } else if (!keyword.length) {
+                    isVisible = true;
+                    name.html(name.text());
+                }
+
+                if (br != null) {
+                    isVisible = true;
+                    brand.html(`${br.str.slice(0, br.start)}<span class="highlight">${br.match}</span>${br.str.slice(br.end)}`)
+                } else if (!keyword.length) {
+                    isVisible = true;
+                    brand.html(brand.text());
+                }
+            }
+            if (isVisible) {
+                $(item).css("display", "flex");
+                noItem = false;
+            } else {
+                $(item).css("display", "none");
+            }
+        });
+
+        if (noItem) {
+            $("#productList .no-item").css("display", "flex");
+        } else {
+            $("#productList .no-item").css("display", "none");
+        }
+    })
+
+    $("#dropArea").droppable({
+        accept: "#productList .item",
+        hoverClass: "hover-item",
+        drop: function(event, ui) {
+            var productId = ui.draggable.attr("data-index");
+            if (basketList.some((product) => {
+                return product.id == productId;
+            })) {
+                alert("이미 장바구니에 담긴 상품입니다.");
+                return;
+            }
+            /**
+             * @type {ProductData}
+             */
+            var data = productList[productId.toNumber() - 1];
+            basketList.push({
+                id: data.id,
+                name: data.name,
+                price: data.price,
+                count: 1,
+            });
+
+            var item = $(`
+                <div class="card-ver item">
+                    <div class="top card-hor">
+                        <img src="/assets/images/products/${data.photo}" title="${data.name}" alt="${data.name}" class="left">
+                        <div class="right product">
+                            <span class="name">${data.name}</span>
+                            <span class="brand">${data.brand}</span>
+                            <span class="price">${data.price.format()}</span>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <label class="label-title">
+                            <span class="title">수량</span>
+                            <input value=1 min=1 type="number" class="value count">
+                            <button class="button close"><i class="fa fa-close"></i></button>
+                        </label>
+                        <div class="label-title">
+                            <span class="title">합계</span>
+                            <span class="value price">${data.price.format()}</span>
+                        </div>
+                    </div>
+                </div>
+            `);
+
+            item.find(".count").change((e, ui) => {
+                let count = $(e.target).val().toNumber();
+                if (count < 1) {
+                    $(e.target).val(1);
+                    count = 1;
+                }
+
+                var index = basketList.findIndex(value => {
+                    return value.id === data.id;
+                });
+                basketList[index].count = count;
+                item.find(".value.price").html((basketList[index].price * basketList[index].count).format());
+                updateTotal();
+            });
+
+            item.find(".close").click((e, ui) => {
+                var index = basketList.findIndex(value => {
+                    return value.id === data.id;
+                });
+                item.remove();
+                basketList.splice(index, 1);
+                updateTotal();
+            })
+
+            $("#basket .list").append(item);
+            updateTotal();
+        },
+    });
+
+    $("#buy").click(e => {
         if (!basketList.length) {
-            alert("장바구니에 상품이 없습니다.");
+            alert("장바구니가 비었습니다.");
             return;
         }
 
         $("#buyInfo").dialog({
-            title: "구매 정보",
+            title: "구매 정보 입력",
             position: { my: "center", at: "center", of: window },
-            open: () => {},
-        })
-    });
+            resizable: false,
+            open: (e) => {
 
-    $("#doneInfo").click(() => {
-        if (!$("#userName").val() || !$("#userAddress").val()) {
-            alert("이름과 주소를 입력해주세요.");
+            }
+        })
+    })
+
+    $("#buyInfo .submit").click(e => {
+        if (!$("#buyName").val().length || !$("#buyAddress").val().length) {
+            alert("이름도 주소를 입력해 주세요.");
             return;
         }
-        var name = $("#userName").val(), address = $("#userAddress").val();
-        $("#userName").val("");
-        $("#userAddress").val("");
         $("#buyInfo").dialog("close");
-
-        var canvas = $("#buyImg");
-        /**
-         * @type {CanvasRenderingContext2D}
-         */
-        var context = canvas[0].getContext("2d");
-
-        var width = 512, height = 16 + 24  + 1 + 8 + 16 + 8 + (16 + 8) * basketList.length + 8 + 1 + 8 + 24 + 16;
-        canvas.attr({
-            width: width,
-            height: height
-        });
-        canvas.css("width", "512px");
-        canvas.css("height", `${height}px`);
-
-        context.fillStyle = "#ffffff";
-        context.fillRect(0, 0, width, height);
-
-        context.fillStyle = "#222222";
-        context.font = "24px sans-sarif bold";
-        context.textBaseline = "top"
-        context.textAlign = "center";
-        context.fillText("영수증", width / 2, 16);
-
-        context.fillRect(16, 16 + 24 + 8, 512 - 32, 1);
-
-        context.font = "16px sans-sarif bold";
-        context.textAlign = "right";
-        var today = new Date();
-        context.fillText(`${today.getFullYear()}-${today.getMonth()}-${today.getDate()} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`, 512 - 16, 16 + 24 + 8 + 1 + 8);
-
-        for (let i = 0; i < basketList.length; i++) {
-            var top = 16 + 24 + 8 + 1 + 8 + 16 + 8 + (16 + 8) * i;
-            context.textAlign = "left";
-            context.fillText(`${basketList[i].name} x ${basketList[i].count}`, 16, top);
-
-            context.textAlign = "right";
-            context.fillText((basketList[i].count * basketList[i].price).format(), 512 - 16, top);
-        }
-
-        context.fillRect(16, height - 16 - 24 - 8 - 1, 512 - 32, 1);
-
-        context.textAlign = "right";
-        
 
         $("#buyResult").dialog({
             title: "영수증",
             position: { my: "center", at: "center", of: window },
             width: "auto",
             height: "auto",
+            resizable: false,
             open: () => {
-                basketList.splice(0, basketList.length);
-                $("#basket .list").children().remove();
-                updateTotal();
+                $("#buyName").val("");
+                $("#buyAddress").val("");
+
+                let cvs = $("#buyImg");
+                /**
+                 * @type {CanvasRenderingContext2D}
+                 * */
+                let ctx = cvs[0].getContext("2d");
+
+                let width = 512;
+                let height = 16 + 24 + 8 + 1 + 8 + 16 + 16 + (16 + 8) * basketList.length + 8 + 1 + 16 + 24 + 16;
+                cvs.attr({
+                    width: width,
+                    height: height,
+                });
+
+                ctx.fillStyle = "#ffffff";
+                ctx.fillText(0, 0, width, height);
+
+                ctx.fillStyle = "#222222";
+                ctx.font = "24px sans-serif";
+                ctx.textBaseline = "top";
+                ctx.textAlign = "center";
+                ctx.fillText("영수증", width / 2, 16);
+
+                ctx.fillRect(16, 16 + 24 + 8, width - 32, 1);
+
+                ctx.font = "16px sans-serif";
+                ctx.textAlign = "right";
+                let date = new Date();
+                ctx.fillText(`${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`, width - 16, 16 + 24 + 8 + 1 + 8);
+
+                ctx.font = "16px sans-serif";
+                for (let i = 0; i < basketList.length; i++) {
+                    let top = 16 + 24 + 8 + 1 + 8 + 16 + 16 + (16 + 8) * i;
+
+                    ctx.textAlign = "left";
+                    ctx.fillText(`${basketList[i].name} x ${basketList[i].count}`, 16, top);
+
+                    ctx.textAlign = "right";
+                    ctx.fillText(`\\${(basketList[i].count * basketList[i].price).format()}`, width - 16, top);
+                }
+
+                ctx.fillRect(16, height - 16 - 24 - 8 - 1, width - 32, 1);
+
+                ctx.font = "24px sans-serif";
+                ctx.fillText(`\\${totalPrice.format()}`, width - 16, height - 16 - 24);
+
+                basketList = [];
+                $("#basket .list").html("");
             },
-        });
+        })
     })
-});
-
-function updateTotal() {
-    totalPrice = 0;
-    basketList.forEach((data) => {
-        totalPrice += data.price * data.count;
-    });
-
-    $("#total .price").html(totalPrice.format());
-}
+})
